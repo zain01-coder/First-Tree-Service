@@ -5,6 +5,7 @@ import Icon from '../ui/Icon'
 import Reveal from '../ui/Reveal'
 import PhoneLink from '../ui/PhoneLink'
 import { useStagger, useStaggerItem } from '../../lib/motion'
+import footerPhoto from '../../assets/footer.jpeg'
 
 const field =
   'w-full min-h-[48px] rounded-lg border border-forest-200 bg-white px-3 py-3 text-base text-forest-900 placeholder:text-forest-300 focus:border-forest-500 focus:outline-none focus:ring-2 focus:ring-forest-300'
@@ -31,7 +32,17 @@ export default function QuoteForm() {
   }
 
   return (
-    <section id="quote" className="bg-forest-800 py-16 text-white sm:py-20">
+    <section id="quote" className="relative isolate overflow-hidden bg-forest-800 py-16 text-white sm:py-20">
+      <img
+        src={footerPhoto}
+        alt=""
+        aria-hidden="true"
+        className="absolute inset-0 -z-30 h-full w-full object-cover"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-20 bg-forest-800/50"
+      />
       <div className="mx-auto grid max-w-6xl gap-10 px-4 sm:px-6 lg:grid-cols-[1fr_1.1fr] lg:items-start">
         <div>
           <Reveal
@@ -143,17 +154,30 @@ export default function QuoteForm() {
                 <label className={labelClass} htmlFor="service">
                   What do you need?
                 </label>
-                <select id="service" name="service" required defaultValue="" className={field}>
-                  <option value="" disabled>
-                    Select a service
-                  </option>
-                  {services.map((service) => (
-                    <option key={service.id} value={service.id}>
-                      {service.name}
+                <div className="relative">
+                  <select
+                    id="service"
+                    name="service"
+                    required
+                    defaultValue=""
+                    className={`${field} appearance-none pr-10`}
+                  >
+                    <option value="" disabled>
+                      Select a service
                     </option>
-                  ))}
-                  <option value="not-sure">Not sure — need someone to look at it</option>
-                </select>
+                    {services.map((service) => (
+                      <option key={service.id} value={service.id}>
+                        {service.name}
+                      </option>
+                    ))}
+                    <option value="not-sure">Not sure — need someone to look at it</option>
+                  </select>
+                  <Icon
+                    name="chevron"
+                    className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-forest-500"
+                    strokeWidth={2}
+                  />
+                </div>
               </Field>
 
               <Field>
