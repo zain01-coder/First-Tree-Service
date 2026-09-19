@@ -1,0 +1,91 @@
+import { motion } from 'framer-motion'
+import { business } from '../../data/business'
+import Button from '../ui/Button'
+import PhoneLink from '../ui/PhoneLink'
+import Icon from '../ui/Icon'
+import { useStagger, useStaggerItem } from '../../lib/motion'
+
+/**
+ * Hero entrance: headline, subtext and CTA fade/slide in staggered on load.
+ * Total sequence is under 0.4s end to end, and every element is already in the
+ * DOM and clickable — the animation never gates the phone number or the CTA.
+ */
+export default function Hero() {
+  const group = useStagger({ stagger: 0.07, delayChildren: 0.03, scroll: false })
+  const item = useStaggerItem({ y: 14 })
+
+  return (
+    <section
+      id="top"
+      className="relative isolate overflow-hidden bg-forest-800 text-white"
+    >
+      {/* Background treatment. Replace with a real job photo:
+          <img src={heroPhoto} alt="Arborist removing a large oak" className="absolute inset-0 h-full w-full object-cover" /> */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-10 bg-[radial-gradient(120%_90%_at_80%_0%,#2f5c43_0%,#1e3a2b_45%,#142a1f_100%)]"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-10 opacity-[0.12] [background-image:repeating-linear-gradient(115deg,transparent_0_18px,#ffffff_18px_19px)]"
+      />
+
+      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24 lg:py-28">
+        <motion.div className="max-w-3xl" {...group}>
+          <motion.p
+            className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.12em] text-forest-100"
+            {...item}
+          >
+            <Icon name="pin" className="h-4 w-4" strokeWidth={2} />
+            Serving {business.cityState} and surrounding areas
+          </motion.p>
+
+          <motion.h1
+            className="text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl"
+            {...item}
+          >
+            Tree Removal &amp; Trimming in {business.cityState}
+          </motion.h1>
+
+          <motion.p
+            className="mt-5 max-w-2xl text-lg leading-relaxed text-forest-100 sm:text-xl"
+            {...item}
+          >
+            {business.name} takes down dead, storm-damaged and badly leaning trees —
+            including tight removals over roofs and fences — and prunes the ones worth
+            keeping. [X YEARS IN BUSINESS] in {business.city}. Free on-site estimates,
+            full cleanup, wood and brush hauled away.
+          </motion.p>
+
+          <motion.div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center" {...item}>
+            <Button href="#quote" className="w-full sm:w-auto">
+              Get a Free Quote
+            </Button>
+            <PhoneLink
+              variant="button"
+              className="w-full sm:w-auto"
+              label={`Call ${business.phone}`}
+            />
+          </motion.div>
+
+          <motion.ul
+            className="mt-8 flex flex-wrap gap-x-6 gap-y-2 text-sm font-semibold text-forest-100"
+            {...item}
+          >
+            {[
+              '[LICENSED — confirm license #]',
+              '[INSURED — confirm coverage]',
+              'Storm damage response',
+              'Full cleanup included',
+            ].map((point) => (
+              <li key={point} className="flex items-center gap-2">
+                <Icon name="check" className="h-4 w-4 text-clay-400" strokeWidth={2.5} />
+                {point}
+              </li>
+            ))}
+          </motion.ul>
+        </motion.div>
+      </div>
+    </section>
+  )
+}
