@@ -17,33 +17,43 @@ function ServiceCard({ service }) {
       {...item}
     >
       <motion.article
-        className="flex h-full flex-col rounded-xl border border-forest-100 bg-white p-6 shadow-sm transition-shadow duration-200 hover:shadow-lg"
+        className="flex h-full flex-col overflow-hidden rounded-xl border border-forest-100 bg-white shadow-sm transition-shadow duration-200 hover:shadow-lg"
         {...hover}
       >
-        <span className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-forest-50 text-forest-600">
-          <Icon name={service.icon} className="h-7 w-7" strokeWidth={1.7} />
-        </span>
-        <h3 className="text-xl font-bold tracking-tight text-forest-900">{service.name}</h3>
-        <p className="mt-2 text-base leading-relaxed text-forest-700">{service.summary}</p>
-        <ul className="mt-4 space-y-2 text-sm text-forest-600">
-          {service.details.map((detail) => (
-            <li key={detail} className="flex items-start gap-2">
-              <Icon
-                name="check"
-                className="mt-0.5 h-4 w-4 shrink-0 text-clay-600"
-                strokeWidth={2.5}
-              />
-              <span>{detail}</span>
-            </li>
-          ))}
-        </ul>
-        <a
-          href="#quote"
-          className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold text-clay-600 hover:text-clay-700"
-        >
-          Get a quote for {service.name.toLowerCase()}
-          <Icon name="arrow" className="h-4 w-4" strokeWidth={2.2} />
-        </a>
+        <div className="aspect-4/3 overflow-hidden">
+          {service.image ? (
+            <img
+              src={service.image}
+              alt={service.imageAlt}
+              loading="lazy"
+              decoding="async"
+              className="h-full w-full object-cover"
+            />
+          ) : (
+            <div
+              role="img"
+              aria-label={service.imageAlt}
+              className="flex h-full w-full flex-col items-center justify-center gap-2 bg-[repeating-linear-gradient(45deg,#e0ebe3_0_12px,#f3f7f4_12px_24px)] p-4 text-center"
+            >
+              <Icon name={service.icon} className="h-8 w-8 text-forest-400" strokeWidth={1.6} />
+              <span className="text-sm font-bold leading-snug text-forest-700">
+                [PHOTO — {service.name}]
+              </span>
+            </div>
+          )}
+        </div>
+
+        <div className="flex flex-1 flex-col p-6">
+          <h3 className="text-xl font-bold tracking-tight text-forest-900">{service.name}</h3>
+          <p className="mt-2 text-base leading-relaxed text-forest-700">{service.summary}</p>
+          <a
+            href="#quote"
+            className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold text-clay-600 hover:text-clay-700"
+          >
+            Learn More
+            <Icon name="arrow" className="h-4 w-4" strokeWidth={2.2} />
+          </a>
+        </div>
       </motion.article>
     </motion.li>
   )

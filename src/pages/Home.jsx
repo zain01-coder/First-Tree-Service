@@ -4,7 +4,7 @@ import StickyMobileCallBar from '../components/layout/StickyMobileCallBar'
 import Hero from '../components/sections/Hero'
 import TrustBar from '../components/sections/TrustBar'
 import Services from '../components/sections/Services'
-import ServiceArea from '../components/sections/ServiceArea'
+import WhyChooseUs from '../components/sections/WhyChooseUs'
 import Gallery from '../components/sections/Gallery'
 import Testimonials from '../components/sections/Testimonials'
 import FAQ from '../components/sections/FAQ'
@@ -24,7 +24,7 @@ export default function Home() {
         <Hero />
         <TrustBar />
         <Services />
-        <ServiceArea />
+        <WhyChooseUs />
         <Gallery />
         <Testimonials />
         <FAQ />

@@ -6,6 +6,13 @@
  * real, verified information before the site goes live. Nothing here is invented.
  */
 
+import treeRemovalPhoto from '../assets/tree removal.jpeg'
+import trimmingPhoto from '../assets/triming.jpeg'
+import stumpPhoto from '../assets/stump.jpeg'
+import stormPhoto from '../assets/storm.jpeg'
+import landClearingPhoto from '../assets/lot and land.jpeg'
+import treeHealthPhoto from '../assets/tree health and risk assessment.jpeg'
+
 const phoneDisplay = '[PHONE NUMBER]'
 
 export const business = {
@@ -88,6 +95,8 @@ export const services = [
     id: 'tree-removal',
     name: 'Tree Removal',
     icon: 'tree',
+    image: treeRemovalPhoto,
+    imageAlt: 'Arborist removing a large tree near a house',
     summary:
       'Safe takedown of dead, diseased, storm-damaged or badly leaning trees — including tight removals over roofs, fences and driveways.',
     details: [
@@ -100,6 +109,8 @@ export const services = [
     id: 'trimming-pruning',
     name: 'Trimming & Pruning',
     icon: 'shears',
+    image: trimmingPhoto,
+    imageAlt: 'Crew pruning branches on a residential tree',
     summary:
       'Species-appropriate pruning that keeps trees structurally sound: crown thinning, crown raising, crown reduction and deadwooding.',
     details: [
@@ -112,6 +123,8 @@ export const services = [
     id: 'stump-grinding',
     name: 'Stump Grinding',
     icon: 'stump',
+    image: stumpPhoto,
+    imageAlt: 'Stump grinder removing a tree stump below grade',
     summary:
       'Grinding stumps below grade so you can re-seed, replant or lay sod — not just cutting the stump flush with the ground.',
     details: [
@@ -124,6 +137,8 @@ export const services = [
     id: 'emergency',
     name: 'Emergency Storm Response',
     icon: 'storm',
+    image: stormPhoto,
+    imageAlt: 'Crew clearing a storm-damaged tree off a driveway',
     summary:
       'Trees and limbs down after a storm — on a roof, across a driveway, or tangled in a service line. Call and we\'ll tell you what we can get to and when.',
     details: [
@@ -137,6 +152,8 @@ export const services = [
     id: 'land-clearing',
     name: 'Lot & Land Clearing',
     icon: 'lot',
+    image: landClearingPhoto,
+    imageAlt: 'Cleared lot ready for building or landscaping',
     summary:
       'Clearing overgrown lots, fence lines and building pads — brush chipped on site, trees removed, ground left workable.',
     details: [
@@ -149,6 +166,8 @@ export const services = [
     id: 'tree-health',
     name: 'Tree Health & Risk Assessment',
     icon: 'leaf',
+    image: treeHealthPhoto,
+    imageAlt: 'Arborist inspecting a tree trunk for decay',
     summary:
       'A straight answer on whether a tree can be saved: decay, root damage, storm cracks, canopy dieback and what it means for the tree\'s stability.',
     details: [
@@ -156,6 +175,50 @@ export const services = [
       'Cabling and bracing recommendations where a tree is worth keeping',
       'Written assessment for homeowners, buyers and HOAs',
     ],
+  },
+]
+
+/** Reasons homeowners pick this crew over the competition. */
+export const whyChooseUs = [
+  {
+    id: 'licensed-insured',
+    icon: 'shield',
+    title: 'Licensed & Insured',
+    description:
+      'Full coverage on every job, so a falling limb or a driveway scratch is never your liability. [LICENSE #] · [INSURED — confirm coverage details].',
+  },
+  {
+    id: 'free-estimates',
+    icon: 'clipboard',
+    title: 'Free, No-Obligation Estimates',
+    description:
+      'We look at the tree, give you a firm price on the spot, and never pressure you to sign before you\'re ready.',
+  },
+  {
+    id: 'experienced-crew',
+    icon: 'calendar',
+    title: 'Experienced Local Crew',
+    description: `${business.name} has been removing and maintaining trees in ${business.city} — [X YEARS IN BUSINESS].`,
+  },
+  {
+    id: 'emergency-response',
+    icon: 'storm',
+    title: 'Fast Emergency Response',
+    description:
+      'Storm took a tree down on your house or driveway? Call and we\'ll tell you honestly where you land in the queue. [EMERGENCY RESPONSE TIME — confirm before publishing].',
+  },
+  {
+    id: 'full-cleanup',
+    icon: 'check',
+    title: 'Full Cleanup, Every Time',
+    description:
+      'Wood hauled, brush chipped, yard raked and blown before we leave — the job isn\'t done until your property looks better than we found it.',
+  },
+  {
+    id: 'reviews',
+    icon: 'star',
+    title: 'Rated by Local Homeowners',
+    description: '[X.X★ FROM X GOOGLE REVIEWS] — real feedback from real jobs in [City, State].',
   },
 ]
 
@@ -286,7 +349,7 @@ export const faqs = [
 
 export const navLinks = [
   { href: '#services', label: 'Services' },
-  { href: '#service-area', label: 'Service Area' },
+  { href: '#why-choose-us', label: 'Why Choose Us' },
   { href: '#gallery', label: 'Gallery' },
   { href: '#reviews', label: 'Reviews' },
   { href: '#faq', label: 'FAQ' },
