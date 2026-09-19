@@ -4,6 +4,7 @@ import Button from '../ui/Button'
 import PhoneLink from '../ui/PhoneLink'
 import Icon from '../ui/Icon'
 import { useStagger, useStaggerItem } from '../../lib/motion'
+import heroPhoto from '../../assets/hero.jpg'
 
 /**
  * Hero entrance: headline, subtext and CTA fade/slide in staggered on load.
@@ -19,21 +20,20 @@ export default function Hero() {
       id="top"
       className="relative isolate overflow-hidden bg-forest-800 text-white"
     >
-      {/* Background treatment. Replace with a real job photo:
-          <img src={heroPhoto} alt="Arborist removing a large oak" className="absolute inset-0 h-full w-full object-cover" /> */}
-      <div
+      <img
+        src={heroPhoto}
+        alt=""
         aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-[radial-gradient(120%_90%_at_80%_0%,#2f5c43_0%,#1e3a2b_45%,#142a1f_100%)]"
+        className="absolute inset-0 -z-30 h-full w-full object-cover"
       />
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-10 opacity-[0.12] [background-image:repeating-linear-gradient(115deg,transparent_0_18px,#ffffff_18px_19px)]"
+        className="absolute inset-0 -z-20 bg-linear-to-b from-forest-900/55 via-forest-800/45 to-forest-900"
       />
-
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24 lg:py-28">
         <motion.div className="max-w-3xl" {...group}>
           <motion.p
-            className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.12em] text-forest-100"
+            className="mb-4 inline-flex items-center gap-2 rounded-full border border-forest-500 bg-forest-500 px-3 py-1 text-xs font-bold uppercase tracking-[0.12em] text-forest-100"
             {...item}
           >
             <Icon name="pin" className="h-4 w-4" strokeWidth={2} />
