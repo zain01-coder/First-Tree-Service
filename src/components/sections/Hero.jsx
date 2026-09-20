@@ -4,7 +4,7 @@ import Button from '../ui/Button'
 import PhoneLink from '../ui/PhoneLink'
 import Icon from '../ui/Icon'
 import { useStagger, useStaggerItem } from '../../lib/motion'
-import heroPhoto from '../../assets/hero.jpg'
+import heroPhoto from '../../assets/footer.jpeg'
 
 /**
  * Hero entrance: headline, subtext and CTA fade/slide in staggered on load.

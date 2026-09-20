@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
+import { Link, useLocation } from 'react-router-dom'
 import { business, navLinks } from '../../data/business'
 import Icon from '../ui/Icon'
+import SiteLink from '../ui/SiteLink'
 import PhoneLink from '../ui/PhoneLink'
 import Button from '../ui/Button'
 import { DURATION, EASE_OUT } from '../../lib/motion'
@@ -9,6 +11,8 @@ import { DURATION, EASE_OUT } from '../../lib/motion'
 export default function Header() {
   const [open, setOpen] = useState(false)
   const reduced = useReducedMotion()
+  const { pathname, hash } = useLocation()
+  const currentPath = `${pathname}${hash}`
 
   // Close the mobile menu on Escape so keyboard users aren't trapped.
   useEffect(() => {
@@ -35,7 +39,7 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-forest-100 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/85">
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
-        <a href="#top" className="flex items-center gap-2 text-forest-800">
+        <Link to="/" className="flex items-center gap-2 text-forest-800">
           <Icon name="tree" className="h-8 w-8 shrink-0 text-forest-600" strokeWidth={1.8} />
           <span className="flex flex-col leading-tight">
             <span className="text-lg font-extrabold tracking-tight sm:text-xl">
@@ -45,17 +49,18 @@ export default function Header() {
               {business.tagline} · {business.cityState}
             </span>
           </span>
-        </a>
+        </Link>
 
-        <nav aria-label="Main" className="hidden items-center gap-6 lg:flex">
+        <nav aria-label="Main" className="hidden items-center gap-4 lg:flex xl:gap-6">
           {navLinks.map((link) => (
-            <a
+            <SiteLink
               key={link.href}
               href={link.href}
-              className="text-sm font-semibold text-forest-800 transition-colors duration-150 hover:text-clay-600"
+              aria-current={link.href === currentPath ? 'page' : undefined}
+              className="text-sm font-semibold text-forest-800 transition-colors duration-150 hover:text-clay-600 aria-[current=page]:text-clay-600"
             >
               {link.label}
-            </a>
+            </SiteLink>
           ))}
         </nav>
 
@@ -66,7 +71,7 @@ export default function Header() {
             iconClassName="h-5 w-5 text-clay-600"
             label={<span className="hidden sm:inline">{business.phone}</span>}
           />
-          <Button href="#quote" className="hidden px-4 text-sm md:inline-flex">
+          <Button as={Link} to="/#quote" className="hidden px-4 text-sm md:inline-flex">
             Get a Free Quote
           </Button>
           <button
@@ -93,17 +98,18 @@ export default function Header() {
             <ul className="mx-auto max-w-6xl px-4 py-2 sm:px-6">
               {navLinks.map((link) => (
                 <li key={link.href}>
-                  <a
+                  <SiteLink
                     href={link.href}
                     onClick={() => setOpen(false)}
-                    className="flex min-h-[48px] items-center border-b border-forest-50 text-base font-semibold text-forest-800"
+                    aria-current={link.href === currentPath ? 'page' : undefined}
+                    className="flex min-h-[48px] items-center border-b border-forest-50 text-base font-semibold text-forest-800 aria-[current=page]:text-clay-600"
                   >
                     {link.label}
-                  </a>
+                  </SiteLink>
                 </li>
               ))}
               <li className="py-3">
-                <Button href="#quote" onClick={() => setOpen(false)} className="w-full">
+                <Button as={Link} to="/#quote" onClick={() => setOpen(false)} className="w-full">
                   Get a Free Quote
                 </Button>
               </li>

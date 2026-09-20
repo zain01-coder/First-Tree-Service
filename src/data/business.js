@@ -347,13 +347,146 @@ export const faqs = [
   },
 ]
 
+/**
+ * Site navigation.
+ *
+ * Hrefs are route-absolute (`/#services`, not `#services`) so every link works
+ * from any page — a bare `#services` on /about would only scroll within /about.
+ * Rendered through react-router <Link>, so hash links stay client-side.
+ */
+/**
+ * About page content.
+ *
+ * Nothing here states a fact about this business that wasn't supplied. Founding
+ * year, founder name, crew size, certifications and insurance details are all
+ * bracketed placeholders and must be replaced with verified information before
+ * launch. The surrounding copy is tree-work reality that's true of the trade,
+ * not a claim about this company's history.
+ */
+export const about = {
+  eyebrow: 'About us',
+  title: `The crew behind ${business.name}`,
+  intro: `Tree work is one of the few trades where a bad decision shows up as a hole in someone's roof. That's the standard we hold ourselves to on every job in ${business.cityState} — from a single deadwooding to an eighty-foot removal with no room to drop it.`,
+
+  story: {
+    heading: 'How we got started',
+    paragraphs: [
+      `${business.name} was founded in [FOUNDING YEAR] by [FOUNDER NAME], and we've been working trees in ${business.cityState} ever since — [X YEARS IN BUSINESS].`,
+      'We started the way most tree companies do: one truck, one chipper, and a phone number handed around by neighbors after a storm. What kept the phone ringing wasn’t advertising — it was showing up when we said we would, giving people a straight answer about whether a tree could be saved, and leaving the yard cleaner than we found it.',
+      `Everything we take on is still local. We're not a franchise routing calls to a subcontractor two counties over — when you call, you're talking to the crew that will be standing in your yard. Serving ${business.city} and the surrounding areas.`,
+    ],
+  },
+
+  crew: {
+    heading: 'Our crew',
+    intro:
+      'Climbers, ground crew and equipment operators who do this full-time — not a seasonal side business. [CREW SIZE — confirm]. [CERTIFICATION — confirm ISA Certified Arborist on crew].',
+    points: [
+      {
+        id: 'training',
+        icon: 'shield',
+        title: 'Trained for the work, not just the weather',
+        description:
+          'Rigging, aerial rescue and chainsaw safety are things our climbers train on and keep current, because the day you need them is the day nothing is going to plan.',
+      },
+      {
+        id: 'assessment',
+        icon: 'leaf',
+        title: 'Every job starts with an assessment',
+        description:
+          'Before a saw comes out we walk the tree: root flare, lean, decay pockets, targets underneath, and where the limbs actually want to go. That walk is what keeps the removal boring.',
+      },
+      {
+        id: 'accountable',
+        icon: 'check',
+        title: 'The same crew, start to finish',
+        description:
+          'The person who quotes your job is the person running it. No handoffs, no surprise subcontractors showing up in an unmarked truck.',
+      },
+    ],
+  },
+
+  equipment: {
+    heading: 'Equipment & approach',
+    intro:
+      'The right gear is what turns a risky removal into a routine one. We match the equipment to the tree and the access, not the other way around.',
+    points: [
+      {
+        id: 'rigging',
+        icon: 'tree',
+        title: 'Climbing and rigging for tight removals',
+        description:
+          'When a tree can’t be felled whole, it comes down in sections — roped, lowered and controlled piece by piece over roofs, fences and flower beds.',
+      },
+      {
+        id: 'lift',
+        icon: 'storm',
+        title: 'Lift and crane-assisted work where it’s safer',
+        description:
+          'Compromised trunks, storm-split leaders and heavy overhangs are often safer picked apart from a bucket or lifted out by crane than climbed. [EQUIPMENT LIST — confirm owned vs. rented].',
+      },
+      {
+        id: 'ground-care',
+        icon: 'clipboard',
+        title: 'Ground protection and full cleanup',
+        description:
+          'Mats and plywood under heavy equipment, brush chipped on site, wood hauled, and the work area raked and blown before we pull out of the driveway.',
+      },
+      {
+        id: 'utility',
+        icon: 'shears',
+        title: 'Work near service lines, done properly',
+        description:
+          'Clearance pruning around your overhead service drop is coordinated with the utility when the line needs to be dropped or covered. We don’t work energized lines ourselves — anyone who offers to is a liability to you.',
+      },
+    ],
+  },
+
+  credentials: {
+    heading: 'Licensed, insured and accountable',
+    intro:
+      'Ask any tree company for proof of insurance before they start. If they hesitate, that’s your answer. Here’s ours — and we’ll hand you the certificates in writing, on request, before work begins.',
+    items: [
+      {
+        id: 'license',
+        icon: 'shield',
+        title: 'Licensed',
+        description: '[LICENSED — confirm license #] — issued in [State].',
+      },
+      {
+        id: 'liability',
+        icon: 'check',
+        title: 'General liability insurance',
+        description:
+          '[INSURED — confirm coverage details]. Damage to your home, fence or vehicle during the job is our liability, not yours.',
+      },
+      {
+        id: 'workers-comp',
+        icon: 'clipboard',
+        title: 'Workers’ compensation',
+        description:
+          '[WORKERS’ COMP — confirm coverage]. Without it, an injury in your yard can become a claim against your homeowner’s policy.',
+      },
+      {
+        id: 'certification',
+        icon: 'leaf',
+        title: 'Arborist certification',
+        description:
+          '[CERTIFICATION — confirm ISA Certified Arborist on crew]. Certification is what separates tree care from tree cutting.',
+      },
+    ],
+  },
+}
+
 export const navLinks = [
-  { href: '#services', label: 'Services' },
-  { href: '#why-choose-us', label: 'Why Choose Us' },
-  { href: '#gallery', label: 'Gallery' },
-  { href: '#reviews', label: 'Reviews' },
-  { href: '#faq', label: 'FAQ' },
-  { href: '#quote', label: 'Contact' },
+  { href: '/', label: 'Home' },
+  { href: '/#services', label: 'Services' },
+  { href: '/about', label: 'About' },
+  { href: '/#why-choose-us', label: 'Why Choose Us' },
+  { href: '/#gallery', label: 'Gallery' },
+  { href: '/#reviews', label: 'Reviews' },
+  { href: '/#faq', label: 'FAQ' },
+  { href: '/#quote', label: 'Contact' },
 ]
 
 export default business

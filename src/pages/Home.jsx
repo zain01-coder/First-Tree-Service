@@ -9,8 +9,16 @@ import Gallery from '../components/sections/Gallery'
 import Testimonials from '../components/sections/Testimonials'
 import FAQ from '../components/sections/FAQ'
 import QuoteForm from '../components/sections/QuoteForm'
+import { business } from '../data/business'
+import usePageMeta from '../lib/usePageMeta'
 
 export default function Home() {
+  // Set explicitly so returning from /about restores the home title and meta.
+  usePageMeta({
+    title: `${business.name} | Tree Removal & Trimming in ${business.cityState}`,
+    description: `Tree removal, trimming and stump grinding in ${business.cityState}. Storm damage response, safe large-tree removal over roofs and fences, full cleanup. Free estimates — call ${business.phone}.`,
+  })
+
   return (
     <>
       <a

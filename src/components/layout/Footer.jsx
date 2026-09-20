@@ -1,6 +1,7 @@
 import { business, navLinks, services, serviceAreas } from '../../data/business'
 import Icon from '../ui/Icon'
 import PhoneLink from '../ui/PhoneLink'
+import SiteLink from '../ui/SiteLink'
 
 export default function Footer() {
   const year = new Date().getFullYear()
@@ -39,9 +40,9 @@ export default function Footer() {
             <ul className="mt-4 space-y-2">
               {services.map((service) => (
                 <li key={service.id}>
-                  <a href="#services" className="hover:text-clay-400">
+                  <SiteLink href="/#services" className="hover:text-clay-400">
                     {service.name}
-                  </a>
+                  </SiteLink>
                 </li>
               ))}
             </ul>
@@ -77,9 +78,9 @@ export default function Footer() {
           className="mt-10 flex flex-wrap gap-x-6 gap-y-2 border-t border-forest-800 pt-6 text-sm font-semibold"
         >
           {navLinks.map((link) => (
-            <a key={link.href} href={link.href} className="hover:text-clay-400">
+            <SiteLink key={link.href} href={link.href} className="hover:text-clay-400">
               {link.label}
-            </a>
+            </SiteLink>
           ))}
         </nav>
 
