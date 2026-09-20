@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import { services, business } from '../../data/business'
 import Icon from '../ui/Icon'
 import SectionHeading from '../ui/SectionHeading'
@@ -46,13 +47,13 @@ function ServiceCard({ service }) {
         <div className="flex flex-1 flex-col p-6">
           <h3 className="text-xl font-bold tracking-tight text-forest-900">{service.name}</h3>
           <p className="mt-2 text-base leading-relaxed text-forest-700">{service.summary}</p>
-          <a
-            href="#quote"
+          <Link
+            to={`/services/${service.slug}`}
             className="mt-5 inline-flex items-center gap-1.5 text-sm font-bold text-clay-600 hover:text-clay-700"
           >
             Learn More
             <Icon name="arrow" className="h-4 w-4" strokeWidth={2.2} />
-          </a>
+          </Link>
         </div>
       </motion.article>
     </motion.li>
@@ -88,6 +89,9 @@ export default function Services() {
             </span>
           </p>
           <div className="flex w-full shrink-0 flex-col gap-3 sm:w-auto sm:flex-row">
+            <Button as={Link} to="/services" variant="outline" className="w-full sm:w-auto">
+              See All Services
+            </Button>
             <Button href="#quote" className="w-full sm:w-auto">
               Get a Free Quote
             </Button>

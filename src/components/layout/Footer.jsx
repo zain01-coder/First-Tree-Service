@@ -40,7 +40,7 @@ export default function Footer() {
             <ul className="mt-4 space-y-2">
               {services.map((service) => (
                 <li key={service.id}>
-                  <SiteLink href="/#services" className="hover:text-clay-400">
+                  <SiteLink href={`/services/${service.slug}`} className="hover:text-clay-400">
                     {service.name}
                   </SiteLink>
                 </li>

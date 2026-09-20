@@ -90,93 +90,305 @@ export const trustSignals = [
   },
 ]
 
+/**
+ * Services.
+ *
+ * `slug` drives the shared detail route at /services/:slug — one template
+ * component renders every service from this data, so adding a seventh service
+ * here gives you a seventh detail page with no new component.
+ *
+ * Per service:
+ *   summary     — one-line card blurb (home + services overview grid)
+ *   description — the one-paragraph description on the overview and detail page
+ *   details     — "What's included": the concrete line items of the job
+ *   signs       — "When you need it": symptoms a homeowner can actually observe
+ *   process     — how the job runs, step by step
+ */
 export const services = [
   {
     id: 'tree-removal',
+    slug: 'tree-removal',
     name: 'Tree Removal',
     icon: 'tree',
     image: treeRemovalPhoto,
     imageAlt: 'Arborist removing a large tree near a house',
+    heading: `Tree Removal in ${business.cityState}`,
     summary:
       'Safe takedown of dead, diseased, storm-damaged or badly leaning trees — including tight removals over roofs, fences and driveways.',
+    description:
+      'Most removals we get called for aren\'t open-field drops — they\'re trees with a house on one side, a fence on the other and a septic field underneath. Those come down in sections: a climber sets rigging, limbs and trunk pieces are roped and lowered under control, and nothing free-falls where it can do damage. Where the trunk is hollow, storm-split or leaning over a structure, we\'ll bring in a lift or a crane rather than put a climber in a tree that can\'t be trusted. Before any of that, we walk the tree with you — root flare, lean, decay pockets, targets underneath — and give you a firm written price, so the only surprise on the day is how little mess is left behind.',
     details: [
       'Rigging and sectional removal where a tree can\'t be felled whole',
-      'Crane-assisted removals on large or hazardous trees',
-      'Full cleanup and haul-away of wood and brush',
+      'Crane- and lift-assisted removals on large or hazardous trees',
+      'Ground protection over lawns, beds and driveways',
+      'Wood cut down and hauled away — or left stove-length if you want the firewood',
+      'Brush chipped on site, work area raked and blown',
+      'Stump grinding available on the same visit',
+    ],
+    signs: [
+      'Dead, dying or largely bare canopy',
+      'A lean that has changed, or soil lifting at the root flare',
+      'Cracks, cavities, fungal conks or soft, punky wood at the base',
+      'Storm-split trunk or a major leader hanging in the canopy',
+      'Roots into a foundation, septic line or driveway slab',
+    ],
+    process: [
+      {
+        title: 'On-site assessment',
+        text: 'We look at the tree, the access, and what sits under it, then quote a firm written price — free, no obligation.',
+      },
+      {
+        title: 'Site setup',
+        text: 'Drop zone cleared, ground protection down, and the utility contacted first if your service drop has to be covered or dropped.',
+      },
+      {
+        title: 'Controlled takedown',
+        text: 'Felled whole where there\'s room; roped and lowered in sections where there isn\'t.',
+      },
+      {
+        title: 'Cleanup and haul-away',
+        text: 'Brush chipped, wood loaded, yard raked and blown before we pull out of the driveway.',
+      },
     ],
   },
   {
     id: 'trimming-pruning',
+    slug: 'tree-trimming-pruning',
     name: 'Trimming & Pruning',
     icon: 'shears',
     image: trimmingPhoto,
     imageAlt: 'Crew pruning branches on a residential tree',
+    heading: `Tree Trimming & Pruning in ${business.cityState}`,
     summary:
       'Species-appropriate pruning that keeps trees structurally sound: crown thinning, crown raising, crown reduction and deadwooding.',
+    description:
+      'Pruning is where a tree is either set up for the next twenty years or quietly ruined. We prune to the species and the structure in front of us — thinning to let wind through the canopy instead of against it, raising the crown for clearance over a drive or roofline, reducing long end-weighted limbs back to a suitable lateral, and taking out deadwood before it drops on its own. What we don\'t do is top trees: cutting a canopy back to stubs forces weak, fast regrowth and leaves you with a more dangerous tree and a bigger bill in five years. Timing matters too — most hardwoods are best pruned in the late dormant season, and oaks and elms should stay untouched during the active season where oak wilt or Dutch elm disease is a concern.',
     details: [
-      'Clearance pruning away from roofs, siding and power lines',
-      'Deadwooding to remove limbs that are likely to drop',
-      'Young-tree structural pruning to prevent future failures',
+      'Crown thinning to reduce wind load and let light through',
+      'Crown raising for clearance over roofs, drives and walkways',
+      'Crown reduction back to suitable laterals — never topping',
+      'Deadwooding to remove limbs likely to drop',
+      'Structural pruning on young trees to prevent future failures',
+      'Clearance pruning around your overhead service drop, coordinated with the utility',
+    ],
+    signs: [
+      'Limbs touching the roof, siding, gutters or a service line',
+      'Dead limbs visible in an otherwise healthy canopy',
+      'Long, heavy end-weighted limbs over a drive, patio or play area',
+      'A canopy so dense that wind hits it like a sail',
+      'Two competing leaders with a tight, included-bark union',
+    ],
+    process: [
+      {
+        title: 'Walk the canopy',
+        text: 'We identify the species, the structural issues and what the tree actually needs — not a blanket percentage off the top.',
+      },
+      {
+        title: 'Agree on the objective',
+        text: 'Clearance, thinning, deadwooding or reduction. You\'ll know what will be cut and roughly what the tree will look like after.',
+      },
+      {
+        title: 'Prune to standard',
+        text: 'Proper cuts at the branch collar, back to suitable laterals, with climbing lines set to avoid damaging the bark.',
+      },
+      {
+        title: 'Clean up',
+        text: 'Brush chipped on site and the work area raked and blown — same as any other job.',
+      },
     ],
   },
   {
     id: 'stump-grinding',
-    name: 'Stump Grinding',
+    slug: 'stump-grinding',
+    name: 'Stump Grinding & Removal',
     icon: 'stump',
     image: stumpPhoto,
     imageAlt: 'Stump grinder removing a tree stump below grade',
+    heading: `Stump Grinding & Removal in ${business.cityState}`,
     summary:
       'Grinding stumps below grade so you can re-seed, replant or lay sod — not just cutting the stump flush with the ground.',
+    description:
+      'A stump cut flush with the ground is still a stump: it sprouts, it attracts carpenter ants and it stops you mowing over it. Grinding chews it into mulch several inches below grade and takes the surface roots with it, so the spot can be raked level, backfilled and seeded or sodded. That\'s the right call for most yards — it\'s faster, cheaper and far less disruptive than excavation. Full stump removal, where the stump and major roots are dug out, is what you want when you\'re pouring concrete, setting footings or replanting a tree in the exact same spot; it leaves a sizeable hole that has to be backfilled. We\'ll tell you which one your project actually needs, and we call 811 before the grinder starts so nobody finds a buried line the hard way.',
     details: [
-      'Ground below grade so the spot can be planted over',
-      'Surface-root grinding for trip hazards along walkways',
-      'Grindings hauled away or backfilled, your choice',
+      'Ground several inches below grade so the spot can be planted over',
+      'Surface-root grinding for trip hazards along walkways and lawns',
+      'Grindings hauled away or backfilled and raked level — your choice',
+      'Full excavation removal where footings or a replant demand it',
+      'Utility locate called before grinding',
+      'Old and weathered stumps handled, not just fresh cuts',
+    ],
+    signs: [
+      'A stump left behind by another contractor or a storm',
+      'Suckers and shoots sprouting around the base year after year',
+      'A stump in the way of mowing, a fence line, a shed or a patio',
+      'Surface roots lifting a walkway or catching the mower deck',
+      'You want to replant or lay sod over the spot',
+    ],
+    process: [
+      {
+        title: 'Measure and quote',
+        text: 'Stump diameter, root spread and access set the price. We quote before we start.',
+      },
+      {
+        title: 'Locate utilities',
+        text: '811 is called and the area is marked before the wheel touches the ground.',
+      },
+      {
+        title: 'Grind below grade',
+        text: 'The stump and surface roots are ground down several inches below ground level.',
+      },
+      {
+        title: 'Backfill or haul',
+        text: 'Grindings are raked back in and leveled, or loaded out and taken away.',
+      },
     ],
   },
   {
     id: 'emergency',
-    name: 'Emergency Storm Response',
+    slug: 'emergency-tree-service',
+    name: 'Emergency Tree Services',
     icon: 'storm',
     image: stormPhoto,
     imageAlt: 'Crew clearing a storm-damaged tree off a driveway',
+    heading: `Emergency Tree Service in ${business.cityState}`,
     summary:
       'Trees and limbs down after a storm — on a roof, across a driveway, or tangled in a service line. Call and we\'ll tell you what we can get to and when.',
+    description:
+      'After a storm the phone doesn\'t stop, so we work worst-first: trees on houses, limbs on service lines, and drives blocked for emergency access come before general cleanup. A tree resting on a structure is a different job from a tree on the lawn — the load is held in tension, and cutting it in the wrong order drops the rest of it through the roof. We rig the weight off before anything is cut free. Hangers and split leaders sitting up in a canopy get taken down the same visit, because that\'s what falls on somebody a day later in the next gust. Call rather than email, and we\'ll tell you honestly where you land in the queue. [EMERGENCY RESPONSE TIME — confirm before publishing].',
     details: [
-      'Limbs and whole trees removed off structures and vehicles',
+      'Trees and limbs removed off roofs, vehicles, fences and outbuildings',
+      'Driveways and access routes cleared first',
       'Hangers and split leaders taken down before they drop',
-      'Documentation and photos for insurance claims',
-      '[EMERGENCY RESPONSE TIME — confirm before publishing]',
+      'Tensioned and uprooted trees cut in a controlled sequence',
+      'Photos and an itemized scope for your insurance claim',
+      'Utility contacted where the service drop is involved — we don\'t work energized lines',
+    ],
+    signs: [
+      'A tree or limb on your house, garage, vehicle or fence',
+      'A limb hung up in the canopy after a storm',
+      'A trunk split or a leader torn out',
+      'A tree uprooting — soil heaving or lifting on one side',
+      'A drive or walkway blocked by storm debris',
+    ],
+    process: [
+      {
+        title: 'Call us',
+        text: 'Tell us what\'s down and what it\'s on. Storm work is triaged by risk, not by who called first.',
+      },
+      {
+        title: 'Make it safe',
+        text: 'The scene is assessed for tension, hangers and line contact before a saw runs.',
+      },
+      {
+        title: 'Remove the hazard',
+        text: 'Weight is rigged off structures and lowered under control, then the rest comes down.',
+      },
+      {
+        title: 'Document and clean up',
+        text: 'Photos and an itemized scope for your carrier, debris hauled, area cleared.',
+      },
     ],
   },
   {
     id: 'land-clearing',
+    slug: 'land-clearing',
     name: 'Lot & Land Clearing',
     icon: 'lot',
     image: landClearingPhoto,
     imageAlt: 'Cleared lot ready for building or landscaping',
+    heading: `Lot & Land Clearing in ${business.cityState}`,
     summary:
       'Clearing overgrown lots, fence lines and building pads — brush chipped on site, trees removed, ground left workable.',
+    description:
+      'Whether it\'s a half-acre that\'s gone to brush or a building pad that needs to be clear before the excavator shows up, land clearing is mostly a question of how much you want left. We\'ll take a lot down to bare workable ground, or selectively clear and leave the mature hardwoods you actually want to keep — which is usually the better call, because a specimen oak is worth more standing than the cost of working around it. Brush is chipped on site, merchantable wood is cut and stacked or hauled, and stumps are ground or excavated depending on what you\'re building. Tell us the end use — fence, driveway, pasture, pad — and we\'ll clear to that spec rather than guessing.',
     details: [
+      'Selective clearing that keeps the mature trees worth saving',
       'Fence line and property line clearing',
-      'Brush chipping and overgrowth removal',
-      'Build-site and driveway clearing',
+      'Brush and undergrowth chipped on site',
+      'Building pad, driveway and utility run clearing',
+      'Stumps ground or excavated to suit the end use',
+      'Debris hauled off or piled where you want it',
+    ],
+    signs: [
+      'A lot too overgrown to walk, let alone build on',
+      'A fence or property line disappearing into brush',
+      'A build site, driveway or utility run that has to be cleared first',
+      'Pasture or field reverting to scrub and saplings',
+      'Undergrowth crowding out the mature trees you want to keep',
+    ],
+    process: [
+      {
+        title: 'Walk the property',
+        text: 'We mark what stays and what goes, and flag anything — wetland, easement, protected tree — worth checking before work starts.',
+      },
+      {
+        title: 'Confirm permits',
+        text: 'Clearing rules vary by municipality. We\'ll tell you what to verify with the county before we mobilize.',
+      },
+      {
+        title: 'Clear in stages',
+        text: 'Undergrowth and brush first, then trees, then stumps — so equipment always has room to work.',
+      },
+      {
+        title: 'Leave it workable',
+        text: 'Ground graded back as agreed, debris chipped, hauled or piled to your spec.',
+      },
     ],
   },
   {
     id: 'tree-health',
+    slug: 'tree-health-assessment',
     name: 'Tree Health & Risk Assessment',
     icon: 'leaf',
     image: treeHealthPhoto,
     imageAlt: 'Arborist inspecting a tree trunk for decay',
+    heading: `Tree Health & Risk Assessment in ${business.cityState}`,
     summary:
       'A straight answer on whether a tree can be saved: decay, root damage, storm cracks, canopy dieback and what it means for the tree\'s stability.',
+    description:
+      'Not every tree that looks bad needs to come down, and some that look fine shouldn\'t be standing. An assessment is the part where somebody who does this for a living walks the tree properly — root flare and buttress roots, trunk for cavities, cracks and fungal fruiting bodies, unions for included bark, canopy for dieback and deadwood — and tells you what\'s actually going on and what sits underneath it if it fails. Sometimes the answer is cabling and a reduction pruning; sometimes it\'s removal; often it\'s "watch it and re-inspect after next season." We\'ll put it in writing, which is what a buyer, an HOA or an insurer generally wants to see. [CERTIFICATION — confirm ISA Certified Arborist on crew].',
     details: [
-      'Visual inspection of trunk, root flare and canopy',
+      'Visual inspection of root flare, trunk, unions and canopy',
+      'Decay, cavity, crack and fungal indicator identification',
+      'Target assessment — what the tree would hit if it failed',
       'Cabling and bracing recommendations where a tree is worth keeping',
-      'Written assessment for homeowners, buyers and HOAs',
+      'Pruning or removal recommendation with reasoning, not just a verdict',
+      'Written assessment for homeowners, buyers, HOAs and insurers',
+    ],
+    signs: [
+      'Thinning canopy, early leaf drop or dieback at the branch tips',
+      'Mushrooms or conks at the base or along the trunk',
+      'A cavity, seam or vertical crack in the trunk',
+      'Construction, trenching or grade change near the root zone',
+      'A tree you\'re unsure about that overhangs the house',
+    ],
+    process: [
+      {
+        title: 'Inspection',
+        text: 'A systematic look from root flare to canopy — and at what the tree would hit if it came down.',
+      },
+      {
+        title: 'Diagnosis',
+        text: 'What we found, what it means structurally, and how urgent it is.',
+      },
+      {
+        title: 'Options',
+        text: 'Retain and monitor, prune, cable and brace, or remove — with the reasoning behind each.',
+      },
+      {
+        title: 'Written report',
+        text: 'Findings and recommendations in writing for your records, buyer, HOA or insurer.',
+      },
     ],
   },
 ]
+
+/** Copy for the /services overview page. */
+export const servicesPage = {
+  eyebrow: 'Our services',
+  title: `Tree services in ${business.cityState}`,
+  intro: `From a single limb over a driveway to a full lot clear, ${business.name} handles the whole job — removal, pruning, stump grinding, storm work and cleanup — with the rigging and equipment to do it without tearing up your yard. Every job starts with a free on-site estimate and a firm written price.`,
+}
 
 /** Reasons homeowners pick this crew over the competition. */
 export const whyChooseUs = [
@@ -480,7 +692,7 @@ export const about = {
 
 export const navLinks = [
   { href: '/', label: 'Home' },
-  { href: '/#services', label: 'Services' },
+  { href: '/services', label: 'Services' },
   { href: '/about', label: 'About' },
   { href: '/#why-choose-us', label: 'Why Choose Us' },
   { href: '/#gallery', label: 'Gallery' },

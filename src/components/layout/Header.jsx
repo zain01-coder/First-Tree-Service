@@ -14,6 +14,11 @@ export default function Header() {
   const { pathname, hash } = useLocation()
   const currentPath = `${pathname}${hash}`
 
+  // `/services` stays the current nav item while you're on a service detail
+  // page (`/services/stump-grinding`), which an exact match would miss.
+  const isCurrent = (href) =>
+    href === currentPath || (href !== '/' && !href.includes('#') && pathname.startsWith(`${href}/`))
+
   // Close the mobile menu on Escape so keyboard users aren't trapped.
   useEffect(() => {
     if (!open) return
@@ -56,7 +61,7 @@ export default function Header() {
             <SiteLink
               key={link.href}
               href={link.href}
-              aria-current={link.href === currentPath ? 'page' : undefined}
+              aria-current={isCurrent(link.href) ? 'page' : undefined}
               className="text-sm font-semibold text-forest-800 transition-colors duration-150 hover:text-clay-600 aria-[current=page]:text-clay-600"
             >
               {link.label}
@@ -101,7 +106,7 @@ export default function Header() {
                   <SiteLink
                     href={link.href}
                     onClick={() => setOpen(false)}
-                    aria-current={link.href === currentPath ? 'page' : undefined}
+                    aria-current={isCurrent(link.href) ? 'page' : undefined}
                     className="flex min-h-[48px] items-center border-b border-forest-50 text-base font-semibold text-forest-800 aria-[current=page]:text-clay-600"
                   >
                     {link.label}
