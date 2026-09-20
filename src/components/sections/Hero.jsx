@@ -14,7 +14,7 @@ import heroPhoto from '../../assets/footer2.jpeg'
  */
 export default function Hero() {
   const group = useStagger({ stagger: 0.16, delayChildren: 0.08, scroll: false })
-  const item = useStaggerItem({ y: 20 })
+  const item = useStaggerItem({ y: 20, trigger: 'parent' })
 
   return (
     <section
@@ -29,7 +29,7 @@ export default function Hero() {
       />
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-20 bg-linear-to-b from-forest-900/55 via-forest-800/45 to-forest-900"
+        className="absolute inset-0 -z-20 bg-linear-to-b from-forest-900/35 via-forest-800/25 to-forest-900"
       />
       <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24 lg:py-28">
         <motion.div className="max-w-3xl" {...group}>

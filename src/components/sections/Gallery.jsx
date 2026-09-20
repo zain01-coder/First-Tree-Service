@@ -10,13 +10,13 @@ import { useStagger, useStaggerItem } from '../../lib/motion'
  * it's a GPU-composited transform, costs nothing on scroll, and is switched off
  * automatically by the reduced-motion block in index.css.
  */
-function GalleryTile({ item }) {
-  const reveal = useStaggerItem({ y: 20 })
+function GalleryTile({ item, index }) {
+  const reveal = useStaggerItem({ y: 20, columns: 3, stagger: 0.13 })
 
   return (
     <motion.figure
       className="group relative overflow-hidden rounded-xl border border-forest-100 bg-forest-50 shadow-sm"
-      {...reveal}
+      {...reveal(index)}
     >
       <div className="aspect-4/3 overflow-hidden">
         {item.src ? (
@@ -46,7 +46,7 @@ function GalleryTile({ item }) {
 }
 
 export default function Gallery() {
-  const group = useStagger({ stagger: 0.13, amount: 0.12 })
+  const group = useStagger()
 
   return (
     <section id="gallery" className="bg-white py-16 sm:py-20">
@@ -62,8 +62,8 @@ export default function Gallery() {
           {...group}
         >
           {/* The home page shows a sample; the full set lives on /gallery. */}
-          {galleryItems.slice(0, 6).map((item) => (
-            <GalleryTile key={item.id} item={item} />
+          {galleryItems.slice(0, 6).map((item, i) => (
+            <GalleryTile key={item.id} item={item} index={i} />
           ))}
         </motion.div>
 

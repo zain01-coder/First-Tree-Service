@@ -10,8 +10,8 @@ import { useStagger, useStaggerItem } from '../../lib/motion'
  * real number to switch a slot from static placeholder to animated counter.
  */
 export default function TrustBar() {
-  const group = useStagger({ stagger: 0.15, amount: 0.4 })
-  const item = useStaggerItem({ y: 20 })
+  const group = useStagger()
+  const item = useStaggerItem({ y: 20, columns: 4, stagger: 0.15 })
 
   return (
     <section aria-label="Why homeowners hire us" className="border-b border-forest-100 bg-forest-50">
@@ -19,11 +19,11 @@ export default function TrustBar() {
         className="mx-auto grid max-w-6xl grid-cols-1 gap-px overflow-hidden px-4 py-6 sm:grid-cols-2 sm:px-6 lg:grid-cols-4"
         {...group}
       >
-        {trustSignals.map((signal) => (
+        {trustSignals.map((signal, i) => (
           <motion.li
             key={signal.id}
             className="flex items-start gap-3 px-2 py-3 sm:px-4"
-            {...item}
+            {...item(i)}
           >
             <Icon
               name={signal.icon}

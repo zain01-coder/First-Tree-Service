@@ -11,16 +11,17 @@ import SectionHeading from '../components/ui/SectionHeading'
 import { about, business } from '../data/business'
 import { useStagger, useStaggerItem } from '../lib/motion'
 import usePageMeta from '../lib/usePageMeta'
+import aboutPhoto from '../assets/about.jpeg'
 
-function PointCard({ point, tone = 'default' }) {
-  const item = useStaggerItem({ y: 20 })
+function PointCard({ point, tone = 'default', index, columns = 3 }) {
+  const item = useStaggerItem({ y: 20, columns, stagger: 0.15 })
   const surface =
     tone === 'muted'
       ? 'border-forest-100 bg-white'
       : 'border-forest-100 bg-forest-50'
 
   return (
-    <motion.li className={`flex h-full flex-col rounded-xl border p-6 shadow-sm ${surface}`} {...item}>
+    <motion.li className={`flex h-full flex-col rounded-xl border p-6 shadow-sm ${surface}`} {...item(index)}>
       <span className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-forest-100 text-forest-600">
         <Icon name={point.icon} className="h-7 w-7" strokeWidth={1.7} />
       </span>
@@ -36,12 +37,12 @@ export default function About() {
     description: `Who we are: a local tree removal, trimming and stump grinding crew serving ${business.cityState}. Licensed, insured, and straight with you about what a tree needs. Free estimates.`,
   })
 
-  const crewGroup = useStagger({ stagger: 0.15, amount: 0.15 })
-  const equipmentGroup = useStagger({ stagger: 0.15, amount: 0.15 })
-  const credentialGroup = useStagger({ stagger: 0.15, amount: 0.15 })
-  const credentialItem = useStaggerItem({ y: 20 })
+  const crewGroup = useStagger()
+  const equipmentGroup = useStagger()
+  const credentialGroup = useStagger()
+  const credentialItem = useStaggerItem({ y: 20, columns: 4, stagger: 0.15 })
   const heroGroup = useStagger({ stagger: 0.16, delayChildren: 0.08, scroll: false })
-  const heroItem = useStaggerItem({ y: 20 })
+  const heroItem = useStaggerItem({ y: 20, trigger: 'parent' })
 
   return (
     <>
@@ -54,9 +55,19 @@ export default function About() {
       <Header />
 
       <main id="main">
-        {/* Page header band — mirrors the home hero's dark treatment without
-            repeating the photo, so About reads as a second page, not a reskin. */}
-        <section id="top" className="bg-forest-800 text-white">
+        {/* Page header band — same dark-photo treatment as the home hero,
+            using the about-page image instead of the home hero photo. */}
+        <section id="top" className="relative isolate overflow-hidden bg-forest-800 text-white">
+          <img
+            src={aboutPhoto}
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 -z-30 h-full w-full object-cover"
+          />
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 -z-20 bg-linear-to-b from-forest-900/35 via-forest-800/25 to-forest-900"
+          />
           <motion.div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20" {...heroGroup}>
             <motion.nav
               aria-label="Breadcrumb"
@@ -173,8 +184,8 @@ export default function About() {
               className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"
               {...crewGroup}
             >
-              {about.crew.points.map((point) => (
-                <PointCard key={point.id} point={point} tone="muted" />
+              {about.crew.points.map((point, i) => (
+                <PointCard key={point.id} point={point} tone="muted" index={i} columns={3} />
               ))}
             </motion.ul>
           </div>
@@ -192,8 +203,8 @@ export default function About() {
               className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2"
               {...equipmentGroup}
             >
-              {about.equipment.points.map((point) => (
-                <PointCard key={point.id} point={point} />
+              {about.equipment.points.map((point, i) => (
+                <PointCard key={point.id} point={point} index={i} columns={2} />
               ))}
             </motion.ul>
           </div>
@@ -212,11 +223,11 @@ export default function About() {
               className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4"
               {...credentialGroup}
             >
-              {about.credentials.items.map((item) => (
+              {about.credentials.items.map((item, i) => (
                 <motion.li
                   key={item.id}
                   className="flex h-full flex-col rounded-xl border border-forest-800 bg-forest-800/60 p-6"
-                  {...credentialItem}
+                  {...credentialItem(i)}
                 >
                   <span className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-forest-700 text-forest-100">
                     <Icon name={item.icon} className="h-7 w-7" strokeWidth={1.7} />

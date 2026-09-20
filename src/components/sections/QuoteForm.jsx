@@ -11,10 +11,10 @@ const field =
   'w-full min-h-[48px] rounded-lg border border-forest-200 bg-white px-3 py-3 text-base text-forest-900 placeholder:text-forest-300 focus:border-forest-500 focus:outline-none focus:ring-2 focus:ring-forest-300'
 const labelClass = 'block text-sm font-bold text-forest-900'
 
-function Field({ children }) {
-  const item = useStaggerItem({ y: 18 })
+function Field({ children, index = 0 }) {
+  const item = useStaggerItem({ y: 18, columns: 6 })
   return (
-    <motion.div className="space-y-1.5" {...item}>
+    <motion.div className="space-y-1.5" {...item(index)}>
       {children}
     </motion.div>
   )
@@ -22,7 +22,7 @@ function Field({ children }) {
 
 export default function QuoteForm() {
   const [submitted, setSubmitted] = useState(false)
-  const group = useStagger({ stagger: 0.12, amount: 0.15 })
+  const group = useStagger({ stagger: 0.12 })
 
   // [FORM HANDLER NEEDED — wire to the client's email service, CRM or form
   // endpoint (Formspree, Netlify Forms, etc.) before launch.]
@@ -104,7 +104,7 @@ export default function QuoteForm() {
             </div>
           ) : (
             <motion.form onSubmit={handleSubmit} className="space-y-4" {...group}>
-              <Field>
+              <Field index={0}>
                 <label className={labelClass} htmlFor="name">
                   Name
                 </label>
@@ -119,7 +119,7 @@ export default function QuoteForm() {
                 />
               </Field>
 
-              <Field>
+              <Field index={1}>
                 <label className={labelClass} htmlFor="phone">
                   Phone
                 </label>
@@ -135,7 +135,7 @@ export default function QuoteForm() {
                 />
               </Field>
 
-              <Field>
+              <Field index={2}>
                 <label className={labelClass} htmlFor="address">
                   Service address or city
                 </label>
@@ -150,7 +150,7 @@ export default function QuoteForm() {
                 />
               </Field>
 
-              <Field>
+              <Field index={3}>
                 <label className={labelClass} htmlFor="service">
                   What do you need?
                 </label>
@@ -180,7 +180,7 @@ export default function QuoteForm() {
                 </div>
               </Field>
 
-              <Field>
+              <Field index={4}>
                 <label className={labelClass} htmlFor="details">
                   Details <span className="font-normal text-forest-600">(optional)</span>
                 </label>
@@ -193,7 +193,7 @@ export default function QuoteForm() {
                 />
               </Field>
 
-              <Field>
+              <Field index={5}>
                 <button
                   type="submit"
                   className="inline-flex min-h-[52px] w-full items-center justify-center gap-2 rounded-lg bg-clay-500 px-6 py-3 text-base font-bold text-white shadow-sm transition-[background-color,box-shadow] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-clay-600 hover:shadow-md active:bg-clay-700"

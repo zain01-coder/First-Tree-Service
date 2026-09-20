@@ -13,6 +13,16 @@ import stormPhoto from '../assets/storm.jpeg'
 import landClearingPhoto from '../assets/lot and land.jpeg'
 import treeHealthPhoto from '../assets/footer.jpeg'
 
+import treeRemovalHero from '../assets/tree removal2.jpeg'
+import trimmingHero from '../assets/triming.jpeg'
+import stumpHero from '../assets/removal2.jpeg'
+import emergencyHero from '../assets/emergency.jpeg'
+import landClearingHero from '../assets/lotclearing2.jpeg'
+import treeHealthHero from '../assets/tree health.jpeg'
+
+import oakOverRoofPhoto from '../assets/tree health and risk assessment.jpeg'
+import poleSawPruningPhoto from '../assets/hero.jpg'
+
 const phoneDisplay = '[PHONE NUMBER]'
 
 export const business = {
@@ -112,6 +122,7 @@ export const services = [
     icon: 'tree',
     image: treeRemovalPhoto,
     imageAlt: 'Arborist removing a large tree near a house',
+    heroImage: treeRemovalHero,
     heading: `Tree Removal in ${business.cityState}`,
     summary:
       'Safe takedown of dead, diseased, storm-damaged or badly leaning trees — including tight removals over roofs, fences and driveways.',
@@ -158,6 +169,7 @@ export const services = [
     icon: 'shears',
     image: trimmingPhoto,
     imageAlt: 'Crew pruning branches on a residential tree',
+    heroImage: trimmingHero,
     heading: `Tree Trimming & Pruning in ${business.cityState}`,
     summary:
       'Species-appropriate pruning that keeps trees structurally sound: crown thinning, crown raising, crown reduction and deadwooding.',
@@ -204,6 +216,7 @@ export const services = [
     icon: 'stump',
     image: stumpPhoto,
     imageAlt: 'Stump grinder removing a tree stump below grade',
+    heroImage: stumpHero,
     heading: `Stump Grinding & Removal in ${business.cityState}`,
     summary:
       'Grinding stumps below grade so you can re-seed, replant or lay sod — not just cutting the stump flush with the ground.',
@@ -250,6 +263,7 @@ export const services = [
     icon: 'storm',
     image: stormPhoto,
     imageAlt: 'Crew clearing a storm-damaged tree off a driveway',
+    heroImage: emergencyHero,
     heading: `Emergency Tree Service in ${business.cityState}`,
     summary:
       'Trees and limbs down after a storm — on a roof, across a driveway, or tangled in a service line. Call and we\'ll tell you what we can get to and when.',
@@ -296,6 +310,7 @@ export const services = [
     icon: 'lot',
     image: landClearingPhoto,
     imageAlt: 'Cleared lot ready for building or landscaping',
+    heroImage: landClearingHero,
     heading: `Lot & Land Clearing in ${business.cityState}`,
     summary:
       'Clearing overgrown lots, fence lines and building pads — brush chipped on site, trees removed, ground left workable.',
@@ -342,6 +357,7 @@ export const services = [
     icon: 'leaf',
     image: treeHealthPhoto,
     imageAlt: 'Arborist inspecting a tree trunk for decay',
+    heroImage: treeHealthHero,
     heading: `Tree Health & Risk Assessment in ${business.cityState}`,
     summary:
       'A straight answer on whether a tree can be saved: decay, root damage, storm cracks, canopy dieback and what it means for the tree\'s stability.',
@@ -453,66 +469,66 @@ export const serviceAreas = [
 export const galleryItems = [
   {
     id: 1,
-    src: null,
+    src: oakOverRoofPhoto,
     label: '[PROJECT PHOTO — large oak removal over a roof]',
-    alt: 'Arborist sectioning a large oak above a house roof using rigging lines',
+    alt: 'Bucket truck cutting sections from a large tree beside a house roof',
     caption: 'Sectional removal, [City]',
   },
   {
     id: 2,
-    src: null,
+    src: emergencyHero,
     label: '[PROJECT PHOTO — storm-damaged limb on a garage]',
-    alt: 'Storm-damaged limb resting on a garage roof before removal',
+    alt: 'Crew removing a storm-fallen tree from a house roof',
     caption: 'Storm damage cleanup',
   },
   {
     id: 3,
-    src: null,
+    src: stumpHero,
     label: '[PROJECT PHOTO — stump ground below grade]',
-    alt: 'Stump ground below grade with grindings backfilled and raked level',
-    caption: 'Stump ground below grade',
+    alt: 'Stump grinder chewing through a stump in a front yard',
+    caption: 'Stump grinding in progress',
   },
   {
     id: 4,
-    src: null,
+    src: poleSawPruningPhoto,
     label: '[PROJECT PHOTO — crown reduction before/after]',
-    alt: 'Maple canopy before and after a crown reduction pruning',
-    caption: 'Crown reduction on a maple',
+    alt: 'Crew member pruning a tree with a pole saw in a backyard',
+    caption: 'Pruning a shade tree',
   },
   {
     id: 5,
-    src: null,
+    src: trimmingPhoto,
     label: '[PROJECT PHOTO — power-line clearance pruning]',
-    alt: 'Crew pruning branches back for clearance from an overhead service line',
-    caption: 'Service line clearance',
+    alt: 'Three climbers roped into a large oak, pruning branches with a chipper truck below',
+    caption: 'Climbing crew pruning a mature oak',
   },
   {
     id: 6,
-    src: null,
+    src: landClearingHero,
     label: '[PROJECT PHOTO — cleared fence line]',
-    alt: 'Overgrown fence line cleared of brush and small trees',
-    caption: 'Fence line clearing',
+    alt: 'Forestry mulcher clearing brush and undergrowth near a house',
+    caption: 'Brush and overgrowth cleared',
   },
   {
     id: 7,
-    src: null,
+    src: treeRemovalPhoto,
     label: '[PROJECT PHOTO — crane-assisted removal]',
-    alt: 'Crane lifting a sectioned trunk out of a fenced backyard',
-    caption: 'Crane pick over a backyard',
+    alt: 'Crew in a bucket truck cutting down a large tree in a residential backyard',
+    caption: 'Bucket truck removal, backyard',
   },
   {
     id: 8,
-    src: null,
+    src: stumpPhoto,
     label: '[PROJECT PHOTO — deadwooding a mature oak]',
-    alt: 'Climber roped into a mature oak cutting out deadwood from the canopy',
-    caption: 'Deadwooding a mature oak',
+    alt: 'Two climbers working a mature oak near a house, one in a bucket truck',
+    caption: 'Removing a mature oak',
   },
   {
     id: 9,
-    src: null,
+    src: landClearingPhoto,
     label: '[PROJECT PHOTO — yard raked clean after a removal]',
-    alt: 'Lawn raked clean with no ruts or debris after a tree removal',
-    caption: 'Cleanup after a takedown',
+    alt: 'Two arborists limbing and bucking a felled tree in a front yard',
+    caption: 'Cutting up a fallen limb',
   },
 ]
 

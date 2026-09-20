@@ -11,6 +11,7 @@ import SectionHeading from '../components/ui/SectionHeading'
 import { business, galleryItems, galleryPage } from '../data/business'
 import { useStagger, useStaggerItem } from '../lib/motion'
 import usePageMeta from '../lib/usePageMeta'
+import galleryPhoto from '../assets/gallery.jpeg'
 
 /**
  * One gallery tile.
@@ -24,13 +25,13 @@ import usePageMeta from '../lib/usePageMeta'
  * hover from `sm:` up: touch devices have no hover state, so a caption that only
  * appears on hover would simply never be readable on a phone.
  */
-function GalleryTile({ item }) {
-  const reveal = useStaggerItem({ y: 22, scale: 0.97 })
+function GalleryTile({ item, index }) {
+  const reveal = useStaggerItem({ y: 22, scale: 0.97, columns: 3, stagger: 0.13 })
 
   return (
     <motion.figure
       className="group relative isolate overflow-hidden rounded-xl border border-forest-100 bg-forest-50 shadow-sm"
-      {...reveal}
+      {...reveal(index)}
     >
       <div className="aspect-4/3 overflow-hidden">
         {item.src ? (
@@ -66,9 +67,9 @@ export default function Gallery() {
     description: `Photos of recent tree removals, storm damage cleanup, pruning and stump grinding in ${business.cityState}. Licensed and insured, free on-site estimates — call ${business.phone}.`,
   })
 
-  const group = useStagger({ stagger: 0.13, amount: 0.12 })
+  const group = useStagger()
   const heroGroup = useStagger({ stagger: 0.16, delayChildren: 0.08, scroll: false })
-  const heroItem = useStaggerItem({ y: 20 })
+  const heroItem = useStaggerItem({ y: 20, trigger: 'parent' })
 
   return (
     <>
@@ -81,8 +82,18 @@ export default function Gallery() {
       <Header />
 
       <main id="main">
-        {/* Same dark page-header band as /services and /about. */}
-        <section id="top" className="bg-forest-800 text-white">
+        {/* Same dark-photo page-header band as /services and /about. */}
+        <section id="top" className="relative isolate overflow-hidden bg-forest-800 text-white">
+          <img
+            src={galleryPhoto}
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 -z-30 h-full w-full object-cover"
+          />
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 -z-20 bg-linear-to-b from-forest-900/35 via-forest-800/25 to-forest-900"
+          />
           <motion.div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20" {...heroGroup}>
             <motion.nav
               aria-label="Breadcrumb"
@@ -141,8 +152,8 @@ export default function Gallery() {
               className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"
               {...group}
             >
-              {galleryItems.map((item) => (
-                <GalleryTile key={item.id} item={item} />
+              {galleryItems.map((item, i) => (
+                <GalleryTile key={item.id} item={item} index={i} />
               ))}
             </motion.div>
 

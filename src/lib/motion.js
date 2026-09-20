@@ -5,12 +5,15 @@
  *  - Entrance durations sit in the 0.5s–0.8s band: slow enough to read as calm,
  *    short enough that nothing feels stalled. Nothing bouncy.
  *  - Reveals fire once (`viewport.once`), so scrolling back up never re-animates.
- *  - Staggered groups read as a *reveal*: each item is wiped in from behind a
- *    mask (`clip-path: inset()`) while it rises into place, so content appears
- *    to be uncovered rather than to fade in. Self-triggered reveals (`useReveal`)
- *    fade and rise without the clip — see the mask constants for why. Only
- *    opacity/transform/clip-path animate — none of them trigger layout, so
- *    scrolling stays smooth on mid-range phones.
+ *  - Groups whose *parent* is the trigger (page-load entrances like the hero,
+ *    `useStagger({ scroll: false })`) wipe each item in from behind a mask
+ *    (`clip-path: inset()`) while it rises into place, so content appears to
+ *    be uncovered rather than to fade in. Anything that triggers its own
+ *    reveal — `useReveal`, and `useStaggerItem`'s default self-triggered mode
+ *    for scroll grids — fades and rises without the clip, because Chrome
+ *    can't intersection-observe an element against its own clip-path; see the
+ *    mask constants for why. Only opacity/transform/clip-path animate — none
+ *    of them trigger layout, so scrolling stays smooth on mid-range phones.
  *  - When the visitor prefers reduced motion, movement is dropped entirely and
  *    only a very short opacity fade remains.
  *  - Nothing gates content: every element's `initial` state is reachable and all
@@ -38,12 +41,13 @@ export const EASE_OUT_CSS = 'cubic-bezier(0.16, 1, 0.3, 1)'
  * fixed-position descendant.
  *
  * IMPORTANT: only ever put this wipe on an element whose entrance is triggered
- * by *another* element — i.e. a `useStaggerItem()` child driven by its
- * `useStagger()` parent. Chrome folds an element's own `clip-path` into what
- * IntersectionObserver reports, so an element that both carries MASK_HIDDEN and
- * waits on its own `whileInView` reports an intersection ratio of 0, never
- * trips the threshold, and stays clipped — permanently invisible. That is why
- * `useReveal` below does a plain fade + rise.
+ * by *another* element — i.e. a `useStaggerItem({ trigger: 'parent' })` child
+ * driven by its `useStagger({ scroll: false })` parent. Chrome folds an
+ * element's own `clip-path` into what IntersectionObserver reports, so an
+ * element that both carries MASK_HIDDEN and waits on its own `whileInView`
+ * reports an intersection ratio of 0, never trips the threshold, and stays
+ * clipped — permanently invisible. That is why `useReveal` and the default
+ * self-triggered `useStaggerItem` do a plain fade + rise instead.
  */
 export const MASK_HIDDEN = 'inset(0% -10% 100% -10%)'
 export const MASK_SHOWN = 'inset(-10% -10% -10% -10%)'
@@ -89,51 +93,114 @@ export function useReveal({ delay = 0, y = 24, amount = 0.2 } = {}) {
 
 /**
  * Staggered group. Put `useStagger()` on the parent and `useStaggerItem()` on
- * each child; the parent drives the timing.
+ * each child.
+ *
+ * For `scroll: false` (page-load entrances, e.g. the hero) the parent still
+ * drives timing via Framer variants — every child is already on screen, so a
+ * single `animate` on the parent is the right trigger and `staggerChildren`
+ * gives a clean top-to-bottom cascade.
+ *
+ * For `scroll: true` (the default — every reveal-on-scroll grid) the parent
+ * does *not* gate its children. A single `whileInView` on the parent means the
+ * whole group answers to one IntersectionObserver: the moment the container
+ * (or its first child) crosses the threshold, every child gets told to show at
+ * once, staggered only by a fixed delay chain — so a card near the bottom of a
+ * long grid reveals the instant the top of the grid scrolls into view, well
+ * before it's actually visible. `useStaggerItem` below gives each item its own
+ * `whileInView` instead, so this hook is a no-op for the scroll case and only
+ * exists so call sites don't need an `if` around `{...group}`.
  */
-export function useStagger({ stagger = 0.15, delayChildren = 0.08, amount = 0.2, scroll = true } = {}) {
+export function useStagger({ stagger = 0.15, delayChildren = 0.08, scroll = true } = {}) {
   const reduced = useReducedMotion()
 
-  const variants = {
-    hidden: {},
-    show: {
-      transition: {
-        staggerChildren: reduced ? 0 : stagger,
-        delayChildren: reduced ? 0 : delayChildren,
+  if (!scroll) {
+    const variants = {
+      hidden: {},
+      show: {
+        transition: {
+          staggerChildren: reduced ? 0 : stagger,
+          delayChildren: reduced ? 0 : delayChildren,
+        },
       },
-    },
+    }
+    return { variants, initial: 'hidden', animate: 'show' }
   }
 
-  return scroll
-    ? { variants, initial: 'hidden', whileInView: 'show', viewport: { once: true, amount } }
-    : { variants, initial: 'hidden', animate: 'show' }
+  return {}
 }
 
 /**
- * `scale` is opt-in: pass e.g. 0.97 for a scale-in on top of the wipe (gallery
- * tiles). Left at 1 it produces the mask wipe + rise every other group uses.
- * `mask: false` drops the wipe for the plain rise.
+ * One grid/list item's reveal.
+ *
+ * Default (`trigger: 'self'`, for `useStagger({ scroll: true })` parents):
+ * returns a function — `const item = useStaggerItem(...)`, then spread
+ * `{...item(index)}` onto each rendered element, `index` being that element's
+ * position in its `.map()`. Each instance gets its own `whileInView`, so it
+ * fires only when *that* item individually crosses the viewport threshold,
+ * never when a sibling or the container does. `index % columns` still
+ * staggers cards that enter together — `columns` should roughly match the
+ * grid's widest breakpoint — but because the trigger is per-item, a card
+ * scrolled to on its own always reveals immediately rather than waiting on a
+ * fixed chain from card 0. This mode intentionally skips the clip-path wipe:
+ * Chrome folds an element's own clip-path into what IntersectionObserver
+ * reports, so an element that carries both a clip-path and its own
+ * `whileInView` reports an intersection ratio of 0 and never trips the
+ * threshold — see MASK_HIDDEN.
+ *
+ * `trigger: 'parent'` (only for `useStagger({ scroll: false })` parents, e.g.
+ * the hero): returns the props object directly — spread `{...item}` as-is,
+ * same on every child. The item has no trigger of its own: it inherits the
+ * 'hidden'/'show' variant state Framer propagates down from the ancestor's
+ * `animate`, so it's safe to add the clip-path wipe here (`scale` opt-in,
+ * e.g. 0.97; `mask: false` drops the wipe for a plain rise).
  */
-export function useStaggerItem({ y = 20, scale = 1, mask = true } = {}) {
+export function useStaggerItem({
+  y = 20,
+  scale = 1,
+  mask = true,
+  columns = 3,
+  stagger = 0.1,
+  amount = 0.2,
+  trigger = 'self',
+} = {}) {
   const reduced = useReducedMotion()
 
-  const variants = reduced
-    ? {
-        hidden: { opacity: 0 },
-        show: { opacity: 1, transition: { duration: DURATION.reduced } },
-      }
-    : {
-        hidden: { opacity: 0, y, scale, ...(mask && { clipPath: MASK_HIDDEN }) },
-        show: {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          ...(mask && { clipPath: MASK_SHOWN, transitionEnd: MASK_END }),
-          transition: { duration: DURATION.base, ease: EASE_OUT },
-        },
-      }
+  if (trigger === 'parent') {
+    const variants = reduced
+      ? {
+          hidden: { opacity: 0 },
+          show: { opacity: 1, transition: { duration: DURATION.reduced } },
+        }
+      : {
+          hidden: { opacity: 0, y, scale, ...(mask && { clipPath: MASK_HIDDEN }) },
+          show: {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            ...(mask && { clipPath: MASK_SHOWN, transitionEnd: MASK_END }),
+            transition: { duration: DURATION.base, ease: EASE_OUT },
+          },
+        }
+    return { variants }
+  }
 
-  return { variants }
+  return function itemProps(index = 0) {
+    if (reduced) {
+      return {
+        initial: { opacity: 0 },
+        whileInView: { opacity: 1 },
+        viewport: { once: true, amount },
+        transition: { duration: DURATION.reduced, delay: 0 },
+      }
+    }
+
+    return {
+      initial: { opacity: 0, y, scale },
+      whileInView: { opacity: 1, y: 0, scale: 1 },
+      viewport: { once: true, amount, margin: '0px 0px -8% 0px' },
+      transition: { duration: DURATION.base, ease: EASE_OUT, delay: (index % columns) * stagger },
+    }
+  }
 }
 
 /** Services card hover: lift + scale. Falls back to no transform when reduced. */

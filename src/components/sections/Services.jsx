@@ -8,14 +8,14 @@ import PhoneLink from '../ui/PhoneLink'
 import Reveal from '../ui/Reveal'
 import { useCardHover, useStagger, useStaggerItem } from '../../lib/motion'
 
-function ServiceCard({ service }) {
-  const item = useStaggerItem({ y: 20 })
+function ServiceCard({ service, index }) {
+  const item = useStaggerItem({ y: 20, columns: 3, stagger: 0.15 })
   const hover = useCardHover()
 
   return (
     <motion.li
       className="h-full"
-      {...item}
+      {...item(index)}
     >
       <motion.article
         className="flex h-full flex-col overflow-hidden rounded-xl border border-forest-100 bg-white shadow-sm transition-shadow duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] hover:shadow-lg"
@@ -61,7 +61,7 @@ function ServiceCard({ service }) {
 }
 
 export default function Services() {
-  const group = useStagger({ stagger: 0.15, amount: 0.15 })
+  const group = useStagger()
 
   return (
     <section id="services" className="bg-white py-16 sm:py-20">
@@ -76,8 +76,8 @@ export default function Services() {
           className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"
           {...group}
         >
-          {services.map((service) => (
-            <ServiceCard key={service.id} service={service} />
+          {services.map((service, i) => (
+            <ServiceCard key={service.id} service={service} index={i} />
           ))}
         </motion.ul>
 

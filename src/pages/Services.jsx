@@ -11,6 +11,7 @@ import SectionHeading from '../components/ui/SectionHeading'
 import { business, services, servicesPage } from '../data/business'
 import { useStagger, useStaggerItem } from '../lib/motion'
 import usePageMeta from '../lib/usePageMeta'
+import servicesPhoto from '../assets/services.jpeg'
 
 /**
  * One service block on the overview page: name, one-paragraph description,
@@ -20,8 +21,8 @@ import usePageMeta from '../lib/usePageMeta'
  * column; on mobile the image always sits above the copy.
  */
 function ServiceBlock({ service, flip }) {
-  const listGroup = useStagger({ stagger: 0.12, amount: 0.15 })
-  const listItem = useStaggerItem({ y: 18 })
+  const listGroup = useStagger()
+  const listItem = useStaggerItem({ y: 18, columns: 2, stagger: 0.12 })
 
   return (
     <article
@@ -76,8 +77,8 @@ function ServiceBlock({ service, flip }) {
             What's included
           </Reveal>
           <motion.ul className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2" {...listGroup}>
-            {service.details.map((line) => (
-              <motion.li key={line} className="flex gap-2.5 text-base leading-relaxed text-forest-700" {...listItem}>
+            {service.details.map((line, i) => (
+              <motion.li key={line} className="flex gap-2.5 text-base leading-relaxed text-forest-700" {...listItem(i)}>
                 <Icon name="check" className="mt-1 h-4 w-4 shrink-0 text-clay-600" strokeWidth={2.4} />
                 <span>{line}</span>
               </motion.li>
@@ -85,7 +86,7 @@ function ServiceBlock({ service, flip }) {
           </motion.ul>
 
           <Reveal delay={0.24} className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <Button as={Link} to={`/services/${service.slug}`} className="w-full sm:w-auto">
+            <Button as={Link} to={`/services/${service.slug}`} className="w-full shrink-0 sm:w-auto">
               Learn More
               <Icon name="arrow" className="h-4 w-4" strokeWidth={2.2} />
             </Button>
@@ -108,10 +109,10 @@ export default function Services() {
     description: `Tree removal, trimming and pruning, stump grinding, emergency storm response and land clearing in ${business.cityState}. Licensed and insured, free on-site estimates — call ${business.phone}.`,
   })
 
-  const jumpGroup = useStagger({ stagger: 0.12, amount: 0.2 })
-  const jumpItem = useStaggerItem({ y: 18 })
+  const jumpGroup = useStagger()
+  const jumpItem = useStaggerItem({ y: 18, columns: 6, stagger: 0.12 })
   const heroGroup = useStagger({ stagger: 0.16, delayChildren: 0.08, scroll: false })
-  const heroItem = useStaggerItem({ y: 20 })
+  const heroItem = useStaggerItem({ y: 20, trigger: 'parent' })
 
   return (
     <>
@@ -124,10 +125,20 @@ export default function Services() {
       <Header />
 
       <main id="main">
-        {/* Page header band — same dark treatment as /about, so the site reads
+        {/* Page header band — same dark-photo treatment as /about, so the site reads
             as one system rather than a set of separately-designed pages. */}
-        <section id="top" className="bg-forest-800 text-white">
-          <motion.div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20" {...heroGroup}>
+        <section id="top" className="relative isolate overflow-hidden bg-forest-800 text-white">
+          <img
+            src={servicesPhoto}
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 -z-30 h-full w-full object-cover"
+          />
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 -z-20 bg-linear-to-b from-forest-900/35 via-forest-800/25 to-forest-900"
+          />
+          <motion.div className="mx-auto flex min-h-105 max-w-6xl flex-col justify-center px-4 py-20 sm:px-6 sm:py-28 lg:min-h-130" {...heroGroup}>
             <motion.nav
               aria-label="Breadcrumb"
               className="mb-6 text-sm font-semibold text-forest-200"
@@ -183,8 +194,8 @@ export default function Services() {
           <div className="mx-auto max-w-6xl px-4 sm:px-6">
             <h2 className="sr-only">Jump to a service</h2>
             <motion.ul className="flex flex-wrap gap-2" {...jumpGroup}>
-              {services.map((service) => (
-                <motion.li key={service.slug} {...jumpItem}>
+              {services.map((service, i) => (
+                <motion.li key={service.slug} {...jumpItem(i)}>
                   <a
                     href={`#${service.slug}`}
                     className="inline-flex min-h-[44px] items-center gap-2 rounded-lg border border-forest-200 bg-white px-4 text-sm font-bold text-forest-800 transition-colors duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-clay-400 hover:text-clay-600"

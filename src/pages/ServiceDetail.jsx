@@ -21,20 +21,29 @@ import usePageMeta from '../lib/usePageMeta'
  */
 export default function ServiceDetail() {
   const { slug } = useParams()
+  // React Router reuses this component instance across slug changes on the
+  // same route. Keying on slug forces a full remount when navigating between
+  // services (e.g. via "Other services we handle"), so scroll-reveal/entrance
+  // animation state doesn't carry over from the previous service.
+  return <ServiceDetailPage key={slug} />
+}
+
+function ServiceDetailPage() {
+  const { slug } = useParams()
   const service = services.find((s) => s.slug === slug)
 
   // Hooks must run before the early return, so they sit above it.
-  const includedGroup = useStagger({ stagger: 0.12, amount: 0.15 })
-  const includedItem = useStaggerItem({ y: 18 })
-  const signsGroup = useStagger({ stagger: 0.12, amount: 0.15 })
-  const signsItem = useStaggerItem({ y: 18 })
-  const processGroup = useStagger({ stagger: 0.15, amount: 0.15 })
-  const processItem = useStaggerItem({ y: 20 })
-  const relatedGroup = useStagger({ stagger: 0.15, amount: 0.15 })
-  const relatedItem = useStaggerItem({ y: 20 })
+  const includedGroup = useStagger()
+  const includedItem = useStaggerItem({ y: 18, columns: 2, stagger: 0.12 })
+  const signsGroup = useStagger()
+  const signsItem = useStaggerItem({ y: 18, columns: 3, stagger: 0.12 })
+  const processGroup = useStagger()
+  const processItem = useStaggerItem({ y: 20, columns: 4, stagger: 0.15 })
+  const relatedGroup = useStagger()
+  const relatedItem = useStaggerItem({ y: 20, columns: 3, stagger: 0.15 })
   const relatedHover = useCardHover()
   const heroGroup = useStagger({ stagger: 0.16, delayChildren: 0.08, scroll: false })
-  const heroItem = useStaggerItem({ y: 20 })
+  const heroItem = useStaggerItem({ y: 20, trigger: 'parent' })
 
   usePageMeta({
     title: service
@@ -61,8 +70,22 @@ export default function ServiceDetail() {
       <Header />
 
       <main id="main">
-        {/* Page header band — matches /services and /about. */}
-        <section id="top" className="bg-forest-800 text-white">
+        {/* Page header band — same dark-photo treatment as /services and /about. */}
+        <section id="top" className="relative isolate overflow-hidden bg-forest-800 text-white">
+          {service.heroImage ? (
+            <>
+              <img
+                src={service.heroImage}
+                alt=""
+                aria-hidden="true"
+                className="absolute inset-0 -z-30 h-full w-full object-cover"
+              />
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 -z-20 bg-linear-to-b from-forest-900/35 via-forest-800/25 to-forest-900"
+              />
+            </>
+          ) : null}
           <motion.div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20" {...heroGroup}>
             <motion.nav
               aria-label="Breadcrumb"
@@ -138,11 +161,11 @@ export default function ServiceDetail() {
                   What's included
                 </Reveal>
                 <motion.ul className="mt-4 grid gap-2.5 sm:grid-cols-2" {...includedGroup}>
-                  {service.details.map((line) => (
+                  {service.details.map((line, i) => (
                     <motion.li
                       key={line}
                       className="flex gap-2.5 text-base leading-relaxed text-forest-700"
-                      {...includedItem}
+                      {...includedItem(i)}
                     >
                       <Icon name="check" className="mt-1 h-4 w-4 shrink-0 text-clay-600" strokeWidth={2.4} />
                       <span>{line}</span>
@@ -213,11 +236,11 @@ export default function ServiceDetail() {
               intro="None of these mean a tree is definitely coming down — they mean it's worth having someone look before the weather decides for you."
             />
             <motion.ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3" {...signsGroup}>
-              {service.signs.map((sign) => (
+              {service.signs.map((sign, i) => (
                 <motion.li
                   key={sign}
                   className="flex h-full gap-3 rounded-xl border border-forest-100 bg-white p-5 shadow-sm"
-                  {...signsItem}
+                  {...signsItem(i)}
                 >
                   <Icon name="leaf" className="mt-0.5 h-5 w-5 shrink-0 text-forest-500" strokeWidth={1.8} />
                   <span className="text-base font-semibold leading-relaxed text-forest-800">{sign}</span>
@@ -240,7 +263,7 @@ export default function ServiceDetail() {
                 <motion.li
                   key={step.title}
                   className="flex h-full flex-col rounded-xl border border-forest-100 bg-forest-50 p-6"
-                  {...processItem}
+                  {...processItem(i)}
                 >
                   <span className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-forest-700 text-base font-extrabold text-white">
                     {i + 1}
@@ -262,8 +285,8 @@ export default function ServiceDetail() {
               intro={`Most jobs end up being more than one thing — a removal that needs the stump ground, or a storm call that turns into clearance pruning. ${business.name} does all of it, so you're not chasing a second contractor.`}
             />
             <motion.ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3" {...relatedGroup}>
-              {related.map((other) => (
-                <motion.li key={other.slug} className="h-full" {...relatedItem}>
+              {related.map((other, i) => (
+                <motion.li key={other.slug} className="h-full" {...relatedItem(i)}>
                   <motion.article
                     className="flex h-full flex-col rounded-xl border border-forest-100 bg-white p-6 shadow-sm transition-shadow duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] hover:shadow-lg"
                     {...relatedHover}
