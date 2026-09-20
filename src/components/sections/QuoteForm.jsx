@@ -5,14 +5,14 @@ import Icon from '../ui/Icon'
 import Reveal from '../ui/Reveal'
 import PhoneLink from '../ui/PhoneLink'
 import { useStagger, useStaggerItem } from '../../lib/motion'
-import footerPhoto from '../../assets/footer.jpeg'
+import footerPhoto from '../../assets/tree health and risk assessment.jpeg'
 
 const field =
   'w-full min-h-[48px] rounded-lg border border-forest-200 bg-white px-3 py-3 text-base text-forest-900 placeholder:text-forest-300 focus:border-forest-500 focus:outline-none focus:ring-2 focus:ring-forest-300'
 const labelClass = 'block text-sm font-bold text-forest-900'
 
 function Field({ children }) {
-  const item = useStaggerItem({ y: 10 })
+  const item = useStaggerItem({ y: 18 })
   return (
     <motion.div className="space-y-1.5" {...item}>
       {children}

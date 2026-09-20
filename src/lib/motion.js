@@ -5,8 +5,12 @@
  *  - Entrance durations sit in the 0.5s–0.8s band: slow enough to read as calm,
  *    short enough that nothing feels stalled. Nothing bouncy.
  *  - Reveals fire once (`viewport.once`), so scrolling back up never re-animates.
- *  - Everything animates opacity/transform only — no layout-triggering properties,
- *    so scrolling stays smooth on mid-range phones.
+ *  - Staggered groups read as a *reveal*: each item is wiped in from behind a
+ *    mask (`clip-path: inset()`) while it rises into place, so content appears
+ *    to be uncovered rather than to fade in. Self-triggered reveals (`useReveal`)
+ *    fade and rise without the clip — see the mask constants for why. Only
+ *    opacity/transform/clip-path animate — none of them trigger layout, so
+ *    scrolling stays smooth on mid-range phones.
  *  - When the visitor prefers reduced motion, movement is dropped entirely and
  *    only a very short opacity fade remains.
  *  - Nothing gates content: every element's `initial` state is reachable and all
@@ -20,6 +24,30 @@ export const EASE_OUT = [0.16, 1, 0.3, 1]
 
 /** CSS equivalent of EASE_OUT, for Tailwind arbitrary `ease-[...]` values. */
 export const EASE_OUT_CSS = 'cubic-bezier(0.16, 1, 0.3, 1)'
+
+/**
+ * The wipe that gives every entrance its "revealed" feel: the element starts
+ * clipped to a zero-height sliver at its own top edge and is uncovered
+ * downwards, like a curtain being drawn off it.
+ *
+ * Both states are `inset()` with four percentage arguments so Framer Motion can
+ * interpolate between them. The sides/bottom sit at -10% throughout so a card's
+ * box-shadow is never clipped mid-wipe, and `MASK_END` drops the clip entirely
+ * via `transitionEnd` once the reveal lands — a lingering `clip-path` would keep
+ * clipping hover shadows and would make the element a containing block for any
+ * fixed-position descendant.
+ *
+ * IMPORTANT: only ever put this wipe on an element whose entrance is triggered
+ * by *another* element — i.e. a `useStaggerItem()` child driven by its
+ * `useStagger()` parent. Chrome folds an element's own `clip-path` into what
+ * IntersectionObserver reports, so an element that both carries MASK_HIDDEN and
+ * waits on its own `whileInView` reports an intersection ratio of 0, never
+ * trips the threshold, and stays clipped — permanently invisible. That is why
+ * `useReveal` below does a plain fade + rise.
+ */
+export const MASK_HIDDEN = 'inset(0% -10% 100% -10%)'
+export const MASK_SHOWN = 'inset(-10% -10% -10% -10%)'
+export const MASK_END = { clipPath: 'none' }
 
 export const DURATION = {
   /** Reduced-motion fades only — deliberately short, do not raise. */
@@ -35,8 +63,11 @@ export const DURATION = {
 /**
  * Scroll-triggered reveal props. Spread onto any `motion.*` element:
  *   <motion.div {...reveal} />
+ *
+ * Fade + rise only. This element triggers its own entrance, so it must never
+ * carry the MASK_HIDDEN clip — see the note on the mask constants above.
  */
-export function useReveal({ delay = 0, y = 16, amount = 0.2 } = {}) {
+export function useReveal({ delay = 0, y = 24, amount = 0.2 } = {}) {
   const reduced = useReducedMotion()
 
   if (reduced) {
@@ -79,10 +110,11 @@ export function useStagger({ stagger = 0.15, delayChildren = 0.08, amount = 0.2,
 }
 
 /**
- * `scale` is opt-in: pass e.g. 0.97 for a fade + scale-in (gallery tiles).
- * Left at 1 it produces the plain fade + rise every other group already uses.
+ * `scale` is opt-in: pass e.g. 0.97 for a scale-in on top of the wipe (gallery
+ * tiles). Left at 1 it produces the mask wipe + rise every other group uses.
+ * `mask: false` drops the wipe for the plain rise.
  */
-export function useStaggerItem({ y = 14, scale = 1 } = {}) {
+export function useStaggerItem({ y = 20, scale = 1, mask = true } = {}) {
   const reduced = useReducedMotion()
 
   const variants = reduced
@@ -91,11 +123,12 @@ export function useStaggerItem({ y = 14, scale = 1 } = {}) {
         show: { opacity: 1, transition: { duration: DURATION.reduced } },
       }
     : {
-        hidden: { opacity: 0, y, scale },
+        hidden: { opacity: 0, y, scale, ...(mask && { clipPath: MASK_HIDDEN }) },
         show: {
           opacity: 1,
           y: 0,
           scale: 1,
+          ...(mask && { clipPath: MASK_SHOWN, transitionEnd: MASK_END }),
           transition: { duration: DURATION.base, ease: EASE_OUT },
         },
       }

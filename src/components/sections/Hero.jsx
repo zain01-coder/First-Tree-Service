@@ -4,7 +4,7 @@ import Button from '../ui/Button'
 import PhoneLink from '../ui/PhoneLink'
 import Icon from '../ui/Icon'
 import { useStagger, useStaggerItem } from '../../lib/motion'
-import heroPhoto from '../../assets/footer.jpeg'
+import heroPhoto from '../../assets/footer2.jpeg'
 
 /**
  * Hero entrance: headline, subtext and CTA fade/slide in staggered on load.
@@ -14,7 +14,7 @@ import heroPhoto from '../../assets/footer.jpeg'
  */
 export default function Hero() {
   const group = useStagger({ stagger: 0.16, delayChildren: 0.08, scroll: false })
-  const item = useStaggerItem({ y: 14 })
+  const item = useStaggerItem({ y: 20 })
 
   return (
     <section

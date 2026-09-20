@@ -6,12 +6,12 @@
  * real, verified information before the site goes live. Nothing here is invented.
  */
 
-import treeRemovalPhoto from '../assets/tree removal.jpeg'
-import trimmingPhoto from '../assets/triming.jpeg'
-import stumpPhoto from '../assets/stump.jpeg'
+import treeRemovalPhoto from '../assets/image1.jpeg'
+import trimmingPhoto from '../assets/image2.jpeg'
+import stumpPhoto from '../assets/image3.jpeg'
 import stormPhoto from '../assets/storm.jpeg'
 import landClearingPhoto from '../assets/lot and land.jpeg'
-import treeHealthPhoto from '../assets/tree health and risk assessment.jpeg'
+import treeHealthPhoto from '../assets/footer.jpeg'
 
 const phoneDisplay = '[PHONE NUMBER]'
 
@@ -723,10 +723,8 @@ export const navLinks = [
   { href: '/', label: 'Home' },
   { href: '/services', label: 'Services' },
   { href: '/about', label: 'About' },
-  { href: '/#why-choose-us', label: 'Why Choose Us' },
   { href: '/gallery', label: 'Gallery' },
   { href: '/#reviews', label: 'Reviews' },
-  { href: '/#faq', label: 'FAQ' },
   { href: '/#quote', label: 'Contact' },
 ]
 

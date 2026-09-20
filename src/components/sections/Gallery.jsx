@@ -11,7 +11,7 @@ import { useStagger, useStaggerItem } from '../../lib/motion'
  * automatically by the reduced-motion block in index.css.
  */
 function GalleryTile({ item }) {
-  const reveal = useStaggerItem({ y: 14 })
+  const reveal = useStaggerItem({ y: 20 })
 
   return (
     <motion.figure

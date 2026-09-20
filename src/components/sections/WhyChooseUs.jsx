@@ -8,7 +8,7 @@ import PhoneLink from '../ui/PhoneLink'
 import { useStagger, useStaggerItem } from '../../lib/motion'
 
 function ReasonCard({ reason }) {
-  const item = useStaggerItem({ y: 14 })
+  const item = useStaggerItem({ y: 20 })
 
   return (
     <motion.li

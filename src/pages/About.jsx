@@ -13,7 +13,7 @@ import { useStagger, useStaggerItem } from '../lib/motion'
 import usePageMeta from '../lib/usePageMeta'
 
 function PointCard({ point, tone = 'default' }) {
-  const item = useStaggerItem({ y: 14 })
+  const item = useStaggerItem({ y: 20 })
   const surface =
     tone === 'muted'
       ? 'border-forest-100 bg-white'
@@ -39,7 +39,9 @@ export default function About() {
   const crewGroup = useStagger({ stagger: 0.15, amount: 0.15 })
   const equipmentGroup = useStagger({ stagger: 0.15, amount: 0.15 })
   const credentialGroup = useStagger({ stagger: 0.15, amount: 0.15 })
-  const credentialItem = useStaggerItem({ y: 14 })
+  const credentialItem = useStaggerItem({ y: 20 })
+  const heroGroup = useStagger({ stagger: 0.16, delayChildren: 0.08, scroll: false })
+  const heroItem = useStaggerItem({ y: 20 })
 
   return (
     <>
@@ -55,8 +57,12 @@ export default function About() {
         {/* Page header band — mirrors the home hero's dark treatment without
             repeating the photo, so About reads as a second page, not a reskin. */}
         <section id="top" className="bg-forest-800 text-white">
-          <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
-            <nav aria-label="Breadcrumb" className="mb-6 text-sm font-semibold text-forest-200">
+          <motion.div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20" {...heroGroup}>
+            <motion.nav
+              aria-label="Breadcrumb"
+              className="mb-6 text-sm font-semibold text-forest-200"
+              {...heroItem}
+            >
               <Link to="/" className="hover:text-clay-400">
                 Home
               </Link>
@@ -64,17 +70,31 @@ export default function About() {
                 /
               </span>
               <span className="text-white">About</span>
-            </nav>
+            </motion.nav>
 
-            <p className="mb-3 text-sm font-bold uppercase tracking-[0.14em] text-clay-400">
+            <motion.p
+              className="mb-3 text-sm font-bold uppercase tracking-[0.14em] text-clay-400"
+              {...heroItem}
+            >
               {about.eyebrow}
-            </p>
-            <h1 className="max-w-3xl text-4xl font-extrabold leading-[1.1] tracking-tight sm:text-5xl">
+            </motion.p>
+            <motion.h1
+              className="max-w-3xl text-4xl font-extrabold leading-[1.1] tracking-tight sm:text-5xl"
+              {...heroItem}
+            >
               {about.title}
-            </h1>
-            <p className="mt-5 max-w-2xl text-lg leading-relaxed text-forest-100">{about.intro}</p>
+            </motion.h1>
+            <motion.p
+              className="mt-5 max-w-2xl text-lg leading-relaxed text-forest-100"
+              {...heroItem}
+            >
+              {about.intro}
+            </motion.p>
 
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <motion.div
+              className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center"
+              {...heroItem}
+            >
               <Button as={Link} to="/#quote" className="w-full sm:w-auto">
                 Get a Free Quote
               </Button>
@@ -83,8 +103,8 @@ export default function About() {
                 className="w-full sm:w-auto"
                 label={`Call ${business.phone}`}
               />
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </section>
 
         {/* Company story */}

@@ -25,7 +25,7 @@ import usePageMeta from '../lib/usePageMeta'
  * appears on hover would simply never be readable on a phone.
  */
 function GalleryTile({ item }) {
-  const reveal = useStaggerItem({ y: 16, scale: 0.97 })
+  const reveal = useStaggerItem({ y: 22, scale: 0.97 })
 
   return (
     <motion.figure
@@ -67,6 +67,8 @@ export default function Gallery() {
   })
 
   const group = useStagger({ stagger: 0.13, amount: 0.12 })
+  const heroGroup = useStagger({ stagger: 0.16, delayChildren: 0.08, scroll: false })
+  const heroItem = useStaggerItem({ y: 20 })
 
   return (
     <>
@@ -81,8 +83,12 @@ export default function Gallery() {
       <main id="main">
         {/* Same dark page-header band as /services and /about. */}
         <section id="top" className="bg-forest-800 text-white">
-          <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
-            <nav aria-label="Breadcrumb" className="mb-6 text-sm font-semibold text-forest-200">
+          <motion.div className="mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20" {...heroGroup}>
+            <motion.nav
+              aria-label="Breadcrumb"
+              className="mb-6 text-sm font-semibold text-forest-200"
+              {...heroItem}
+            >
               <Link to="/" className="hover:text-clay-400">
                 Home
               </Link>
@@ -90,19 +96,31 @@ export default function Gallery() {
                 /
               </span>
               <span className="text-white">Gallery</span>
-            </nav>
+            </motion.nav>
 
-            <p className="mb-3 text-sm font-bold uppercase tracking-[0.14em] text-clay-400">
+            <motion.p
+              className="mb-3 text-sm font-bold uppercase tracking-[0.14em] text-clay-400"
+              {...heroItem}
+            >
               {galleryPage.eyebrow}
-            </p>
-            <h1 className="max-w-3xl text-4xl font-extrabold leading-[1.1] tracking-tight sm:text-5xl">
+            </motion.p>
+            <motion.h1
+              className="max-w-3xl text-4xl font-extrabold leading-[1.1] tracking-tight sm:text-5xl"
+              {...heroItem}
+            >
               {galleryPage.title}
-            </h1>
-            <p className="mt-5 max-w-2xl text-lg leading-relaxed text-forest-100">
+            </motion.h1>
+            <motion.p
+              className="mt-5 max-w-2xl text-lg leading-relaxed text-forest-100"
+              {...heroItem}
+            >
               {galleryPage.intro}
-            </p>
+            </motion.p>
 
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <motion.div
+              className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center"
+              {...heroItem}
+            >
               <Button as={Link} to="/#quote" className="w-full sm:w-auto">
                 Get a Free Quote
               </Button>
@@ -111,8 +129,8 @@ export default function Gallery() {
                 className="w-full sm:w-auto"
                 label={`Call ${business.phone}`}
               />
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </section>
 
         <section className="bg-white py-14 sm:py-20">

@@ -9,7 +9,7 @@ import Reveal from '../ui/Reveal'
 import { useCardHover, useStagger, useStaggerItem } from '../../lib/motion'
 
 function ServiceCard({ service }) {
-  const item = useStaggerItem({ y: 14 })
+  const item = useStaggerItem({ y: 20 })
   const hover = useCardHover()
 
   return (

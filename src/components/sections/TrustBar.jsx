@@ -11,7 +11,7 @@ import { useStagger, useStaggerItem } from '../../lib/motion'
  */
 export default function TrustBar() {
   const group = useStagger({ stagger: 0.15, amount: 0.4 })
-  const item = useStaggerItem({ y: 12 })
+  const item = useStaggerItem({ y: 20 })
 
   return (
     <section aria-label="Why homeowners hire us" className="border-b border-forest-100 bg-forest-50">
