@@ -25,7 +25,7 @@ function Stars({ count }) {
 
 function ReviewCard({ review }) {
   return (
-    <blockquote className="flex h-full w-80 flex-col rounded-xl border border-forest-100 bg-white p-6 shadow-sm transition-shadow duration-200 hover:shadow-lg sm:w-95">
+    <blockquote className="flex h-full w-80 flex-col rounded-xl border border-forest-100 bg-white p-6 shadow-sm transition-shadow duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] hover:shadow-lg sm:w-95">
       <Stars count={review.stars} />
       <p className="mt-3 flex-1 text-base leading-relaxed text-forest-800">“{review.quote}”</p>
       <footer className="mt-4 border-t border-forest-50 pt-3 text-sm">

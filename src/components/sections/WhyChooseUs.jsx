@@ -25,7 +25,7 @@ function ReasonCard({ reason }) {
 }
 
 export default function WhyChooseUs() {
-  const group = useStagger({ stagger: 0.06, amount: 0.15 })
+  const group = useStagger({ stagger: 0.15, amount: 0.15 })
 
   return (
     <section id="why-choose-us" className="bg-forest-50 py-16 sm:py-20">

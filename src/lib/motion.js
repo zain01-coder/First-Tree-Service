@@ -2,7 +2,8 @@
  * Shared motion config.
  *
  * Rules this file enforces for the whole site:
- *  - Durations stay in the 0.15s–0.4s band. Nothing slow, nothing bouncy.
+ *  - Entrance durations sit in the 0.5s–0.8s band: slow enough to read as calm,
+ *    short enough that nothing feels stalled. Nothing bouncy.
  *  - Reveals fire once (`viewport.once`), so scrolling back up never re-animates.
  *  - Everything animates opacity/transform only — no layout-triggering properties,
  *    so scrolling stays smooth on mid-range phones.
@@ -11,16 +12,24 @@
  *  - Nothing gates content: every element's `initial` state is reachable and all
  *    text/links are in the DOM and clickable from first paint. The phone number
  *    and CTAs are deliberately excluded from any entrance animation delay chain
- *    long enough to matter (max stagger below is 0.24s).
+ *    long enough to matter (longest chain is the hero's, ~0.7s of delay).
  */
 import { useReducedMotion } from 'framer-motion'
 
-export const EASE_OUT = [0.22, 1, 0.36, 1]
+export const EASE_OUT = [0.16, 1, 0.3, 1]
+
+/** CSS equivalent of EASE_OUT, for Tailwind arbitrary `ease-[...]` values. */
+export const EASE_OUT_CSS = 'cubic-bezier(0.16, 1, 0.3, 1)'
 
 export const DURATION = {
-  fast: 0.15,
-  base: 0.25,
-  slow: 0.35,
+  /** Reduced-motion fades only — deliberately short, do not raise. */
+  reduced: 0.15,
+  /** Hover / tap feedback. */
+  fast: 0.35,
+  /** Staggered item entrances, accordion + panel open/close. */
+  base: 0.5,
+  /** Scroll reveals and hero entrance. */
+  slow: 0.7,
 }
 
 /**
@@ -35,7 +44,7 @@ export function useReveal({ delay = 0, y = 16, amount = 0.2 } = {}) {
       initial: { opacity: 0 },
       whileInView: { opacity: 1 },
       viewport: { once: true, amount },
-      transition: { duration: DURATION.fast, delay: 0 },
+      transition: { duration: DURATION.reduced, delay: 0 },
     }
   }
 
@@ -51,7 +60,7 @@ export function useReveal({ delay = 0, y = 16, amount = 0.2 } = {}) {
  * Staggered group. Put `useStagger()` on the parent and `useStaggerItem()` on
  * each child; the parent drives the timing.
  */
-export function useStagger({ stagger = 0.08, delayChildren = 0.04, amount = 0.2, scroll = true } = {}) {
+export function useStagger({ stagger = 0.15, delayChildren = 0.08, amount = 0.2, scroll = true } = {}) {
   const reduced = useReducedMotion()
 
   const variants = {
@@ -69,19 +78,24 @@ export function useStagger({ stagger = 0.08, delayChildren = 0.04, amount = 0.2,
     : { variants, initial: 'hidden', animate: 'show' }
 }
 
-export function useStaggerItem({ y = 14 } = {}) {
+/**
+ * `scale` is opt-in: pass e.g. 0.97 for a fade + scale-in (gallery tiles).
+ * Left at 1 it produces the plain fade + rise every other group already uses.
+ */
+export function useStaggerItem({ y = 14, scale = 1 } = {}) {
   const reduced = useReducedMotion()
 
   const variants = reduced
     ? {
         hidden: { opacity: 0 },
-        show: { opacity: 1, transition: { duration: DURATION.fast } },
+        show: { opacity: 1, transition: { duration: DURATION.reduced } },
       }
     : {
-        hidden: { opacity: 0, y },
+        hidden: { opacity: 0, y, scale },
         show: {
           opacity: 1,
           y: 0,
+          scale: 1,
           transition: { duration: DURATION.base, ease: EASE_OUT },
         },
       }
@@ -98,7 +112,7 @@ export function useCardHover() {
   return {
     whileHover: { y: -6, scale: 1.02 },
     whileTap: { scale: 0.995 },
-    transition: { duration: DURATION.base, ease: EASE_OUT },
+    transition: { duration: DURATION.fast, ease: EASE_OUT },
   }
 }
 

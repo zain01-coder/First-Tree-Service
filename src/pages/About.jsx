@@ -36,9 +36,9 @@ export default function About() {
     description: `Who we are: a local tree removal, trimming and stump grinding crew serving ${business.cityState}. Licensed, insured, and straight with you about what a tree needs. Free estimates.`,
   })
 
-  const crewGroup = useStagger({ stagger: 0.06, amount: 0.15 })
-  const equipmentGroup = useStagger({ stagger: 0.06, amount: 0.15 })
-  const credentialGroup = useStagger({ stagger: 0.06, amount: 0.15 })
+  const crewGroup = useStagger({ stagger: 0.15, amount: 0.15 })
+  const equipmentGroup = useStagger({ stagger: 0.15, amount: 0.15 })
+  const credentialGroup = useStagger({ stagger: 0.15, amount: 0.15 })
   const credentialItem = useStaggerItem({ y: 14 })
 
   return (
@@ -98,7 +98,7 @@ export default function About() {
                     <Reveal
                       as="p"
                       key={paragraph.slice(0, 32)}
-                      delay={0.04 * i}
+                      delay={0.12 * i}
                       className="text-lg leading-relaxed text-forest-700"
                     >
                       {paragraph}
@@ -108,7 +108,7 @@ export default function About() {
               </div>
 
               <Reveal
-                delay={0.08}
+                delay={0.24}
                 className="h-full rounded-xl border border-forest-100 bg-forest-50 p-6 sm:p-8"
               >
                 <h3 className="text-sm font-bold uppercase tracking-[0.12em] text-forest-600">

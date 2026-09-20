@@ -32,7 +32,7 @@ export default function StickyMobileCallBar() {
         initial: { opacity: 0 },
         animate: { opacity: 1 },
         exit: { opacity: 0 },
-        transition: { duration: DURATION.fast },
+        transition: { duration: DURATION.reduced },
       }
     : {
         initial: { y: '110%' },

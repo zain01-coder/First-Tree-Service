@@ -17,13 +17,13 @@ export default function PhoneLink({
 }) {
   const variants = {
     inline:
-      'inline-flex items-center gap-2 font-semibold text-forest-800 hover:text-clay-600 transition-colors duration-150',
+      'inline-flex items-center gap-2 font-semibold text-forest-800 hover:text-clay-600 transition-colors duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]',
     light:
-      'inline-flex items-center gap-2 font-semibold text-white hover:text-clay-400 transition-colors duration-150',
+      'inline-flex items-center gap-2 font-semibold text-white hover:text-clay-400 transition-colors duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]',
     button:
-      'inline-flex min-h-[48px] items-center justify-center gap-2 rounded-lg border-2 border-white/80 px-6 py-3 text-base font-bold text-white hover:bg-white hover:text-forest-800 transition-colors duration-150',
+      'inline-flex min-h-[48px] items-center justify-center gap-2 rounded-lg border-2 border-white/80 px-6 py-3 text-base font-bold text-white hover:bg-white hover:text-forest-800 transition-colors duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]',
     solid:
-      'inline-flex min-h-[48px] items-center justify-center gap-2 rounded-lg bg-forest-700 px-6 py-3 text-base font-bold text-white hover:bg-forest-800 transition-colors duration-150',
+      'inline-flex min-h-[48px] items-center justify-center gap-2 rounded-lg bg-forest-700 px-6 py-3 text-base font-bold text-white hover:bg-forest-800 transition-colors duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]',
   }
 
   return (

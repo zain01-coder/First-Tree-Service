@@ -10,7 +10,7 @@ import { useStagger, useStaggerItem } from '../../lib/motion'
  * real number to switch a slot from static placeholder to animated counter.
  */
 export default function TrustBar() {
-  const group = useStagger({ stagger: 0.06, amount: 0.4 })
+  const group = useStagger({ stagger: 0.15, amount: 0.4 })
   const item = useStaggerItem({ y: 12 })
 
   return (

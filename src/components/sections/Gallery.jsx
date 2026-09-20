@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { galleryItems } from '../../data/business'
 import SectionHeading from '../ui/SectionHeading'
@@ -24,13 +25,13 @@ function GalleryTile({ item }) {
             alt={item.alt}
             loading="lazy"
             decoding="async"
-            className="h-full w-full object-cover transition-transform duration-300 ease-out will-change-transform group-hover:scale-105"
+            className="h-full w-full object-cover transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform group-hover:scale-105"
           />
         ) : (
           <div
             role="img"
             aria-label={item.alt}
-            className="flex h-full w-full flex-col items-center justify-center gap-2 bg-[repeating-linear-gradient(45deg,#e0ebe3_0_12px,#f3f7f4_12px_24px)] p-4 text-center transition-transform duration-300 ease-out will-change-transform group-hover:scale-105"
+            className="flex h-full w-full flex-col items-center justify-center gap-2 bg-[repeating-linear-gradient(45deg,#e0ebe3_0_12px,#f3f7f4_12px_24px)] p-4 text-center transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] will-change-transform group-hover:scale-105"
           >
             <Icon name="tree" className="h-8 w-8 text-forest-400" strokeWidth={1.6} />
             <span className="text-sm font-bold leading-snug text-forest-700">{item.label}</span>
@@ -45,7 +46,7 @@ function GalleryTile({ item }) {
 }
 
 export default function Gallery() {
-  const group = useStagger({ stagger: 0.05, amount: 0.12 })
+  const group = useStagger({ stagger: 0.13, amount: 0.12 })
 
   return (
     <section id="gallery" className="bg-white py-16 sm:py-20">
@@ -60,15 +61,25 @@ export default function Gallery() {
           className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3"
           {...group}
         >
-          {galleryItems.map((item) => (
+          {/* The home page shows a sample; the full set lives on /gallery. */}
+          {galleryItems.slice(0, 6).map((item) => (
             <GalleryTile key={item.id} item={item} />
           ))}
         </motion.div>
 
-        <p className="mt-6 text-sm text-forest-600">
-          [PROJECT PHOTOS NEEDED — replace the blocks above with real before/after job
-          photos. Never use stock photography here.]
-        </p>
+        <div className="mt-8 flex flex-col gap-4">
+          <Link
+            to="/gallery"
+            className="inline-flex min-h-[48px] items-center gap-2 self-start text-base font-bold text-clay-600 transition-colors duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:text-clay-700"
+          >
+            See more of our work
+            <Icon name="arrow" className="h-4 w-4" strokeWidth={2.2} />
+          </Link>
+          <p className="text-sm text-forest-600">
+            [PROJECT PHOTOS NEEDED — replace the blocks above with real before/after job
+            photos. Never use stock photography here.]
+          </p>
+        </div>
       </div>
     </section>
   )

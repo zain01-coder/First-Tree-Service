@@ -20,7 +20,7 @@ import usePageMeta from '../lib/usePageMeta'
  * column; on mobile the image always sits above the copy.
  */
 function ServiceBlock({ service, flip }) {
-  const listGroup = useStagger({ stagger: 0.04, amount: 0.15 })
+  const listGroup = useStagger({ stagger: 0.12, amount: 0.15 })
   const listItem = useStaggerItem({ y: 10 })
 
   return (
@@ -68,11 +68,11 @@ function ServiceBlock({ service, flip }) {
             </h2>
           </Reveal>
 
-          <Reveal as="p" delay={0.04} className="mt-5 text-lg leading-relaxed text-forest-700">
+          <Reveal as="p" delay={0.12} className="mt-5 text-lg leading-relaxed text-forest-700">
             {service.description}
           </Reveal>
 
-          <Reveal as="h3" delay={0.06} className="mt-7 text-sm font-bold uppercase tracking-[0.12em] text-forest-600">
+          <Reveal as="h3" delay={0.18} className="mt-7 text-sm font-bold uppercase tracking-[0.12em] text-forest-600">
             What's included
           </Reveal>
           <motion.ul className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2" {...listGroup}>
@@ -84,7 +84,7 @@ function ServiceBlock({ service, flip }) {
             ))}
           </motion.ul>
 
-          <Reveal delay={0.08} className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <Reveal delay={0.24} className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
             <Button as={Link} to={`/services/${service.slug}`} className="w-full sm:w-auto">
               Learn More
               <Icon name="arrow" className="h-4 w-4" strokeWidth={2.2} />
@@ -108,7 +108,7 @@ export default function Services() {
     description: `Tree removal, trimming and pruning, stump grinding, emergency storm response and land clearing in ${business.cityState}. Licensed and insured, free on-site estimates — call ${business.phone}.`,
   })
 
-  const jumpGroup = useStagger({ stagger: 0.04, amount: 0.2 })
+  const jumpGroup = useStagger({ stagger: 0.12, amount: 0.2 })
   const jumpItem = useStaggerItem({ y: 10 })
 
   return (
@@ -169,7 +169,7 @@ export default function Services() {
                 <motion.li key={service.slug} {...jumpItem}>
                   <a
                     href={`#${service.slug}`}
-                    className="inline-flex min-h-[44px] items-center gap-2 rounded-lg border border-forest-200 bg-white px-4 text-sm font-bold text-forest-800 transition-colors duration-150 hover:border-clay-400 hover:text-clay-600"
+                    className="inline-flex min-h-[44px] items-center gap-2 rounded-lg border border-forest-200 bg-white px-4 text-sm font-bold text-forest-800 transition-colors duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-clay-400 hover:text-clay-600"
                   >
                     <Icon name={service.icon} className="h-4 w-4 text-forest-500" strokeWidth={1.8} />
                     {service.name}
@@ -197,7 +197,7 @@ export default function Services() {
               title="Not sure which service you need?"
               intro="Describe the tree and we'll tell you straight — whether it needs to come down, whether pruning buys it another decade, and what either one costs. On-site estimates are free and there's no obligation."
             />
-            <Reveal delay={0.08} className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <Reveal delay={0.24} className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Button as={Link} to="/#quote" className="w-full sm:w-auto">
                 Get a Free Quote
               </Button>

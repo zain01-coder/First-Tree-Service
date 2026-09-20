@@ -32,7 +32,7 @@ export default function Header() {
         initial: { opacity: 0 },
         animate: { opacity: 1 },
         exit: { opacity: 0 },
-        transition: { duration: DURATION.fast },
+        transition: { duration: DURATION.reduced },
       }
     : {
         initial: { opacity: 0, height: 0 },
@@ -62,7 +62,7 @@ export default function Header() {
               key={link.href}
               href={link.href}
               aria-current={isCurrent(link.href) ? 'page' : undefined}
-              className="text-sm font-semibold text-forest-800 transition-colors duration-150 hover:text-clay-600 aria-[current=page]:text-clay-600"
+              className="text-sm font-semibold text-forest-800 transition-colors duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:text-clay-600 aria-[current=page]:text-clay-600"
             >
               {link.label}
             </SiteLink>

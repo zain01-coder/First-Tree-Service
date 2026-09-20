@@ -24,13 +24,13 @@ export default function ServiceDetail() {
   const service = services.find((s) => s.slug === slug)
 
   // Hooks must run before the early return, so they sit above it.
-  const includedGroup = useStagger({ stagger: 0.04, amount: 0.15 })
+  const includedGroup = useStagger({ stagger: 0.12, amount: 0.15 })
   const includedItem = useStaggerItem({ y: 10 })
-  const signsGroup = useStagger({ stagger: 0.04, amount: 0.15 })
+  const signsGroup = useStagger({ stagger: 0.12, amount: 0.15 })
   const signsItem = useStaggerItem({ y: 10 })
-  const processGroup = useStagger({ stagger: 0.06, amount: 0.15 })
+  const processGroup = useStagger({ stagger: 0.15, amount: 0.15 })
   const processItem = useStaggerItem({ y: 14 })
-  const relatedGroup = useStagger({ stagger: 0.06, amount: 0.15 })
+  const relatedGroup = useStagger({ stagger: 0.15, amount: 0.15 })
   const relatedItem = useStaggerItem({ y: 14 })
   const relatedHover = useCardHover()
 
@@ -108,13 +108,13 @@ export default function ServiceDetail() {
             <div className="grid gap-10 lg:grid-cols-[1.25fr_1fr] lg:gap-14">
               <div>
                 <SectionHeading eyebrow="What it is" title={`About our ${service.name.toLowerCase()} work`} />
-                <Reveal as="p" delay={0.08} className="mt-6 text-lg leading-relaxed text-forest-700">
+                <Reveal as="p" delay={0.24} className="mt-6 text-lg leading-relaxed text-forest-700">
                   {service.description}
                 </Reveal>
 
                 <Reveal
                   as="h3"
-                  delay={0.1}
+                  delay={0.3}
                   className="mt-10 text-sm font-bold uppercase tracking-[0.12em] text-forest-600"
                 >
                   What's included
@@ -134,7 +134,7 @@ export default function ServiceDetail() {
               </div>
 
               <div className="space-y-6">
-                <Reveal delay={0.06} className="overflow-hidden rounded-xl border border-forest-100">
+                <Reveal delay={0.18} className="overflow-hidden rounded-xl border border-forest-100">
                   <div className="aspect-4/3">
                     {service.image ? (
                       <img
@@ -159,7 +159,7 @@ export default function ServiceDetail() {
                   </div>
                 </Reveal>
 
-                <Reveal delay={0.1} className="rounded-xl border border-forest-100 bg-forest-50 p-6">
+                <Reveal delay={0.3} className="rounded-xl border border-forest-100 bg-forest-50 p-6">
                   <h3 className="text-sm font-bold uppercase tracking-[0.12em] text-forest-600">
                     At a glance
                   </h3>
@@ -247,7 +247,7 @@ export default function ServiceDetail() {
               {related.map((other) => (
                 <motion.li key={other.slug} className="h-full" {...relatedItem}>
                   <motion.article
-                    className="flex h-full flex-col rounded-xl border border-forest-100 bg-white p-6 shadow-sm transition-shadow duration-200 hover:shadow-lg"
+                    className="flex h-full flex-col rounded-xl border border-forest-100 bg-white p-6 shadow-sm transition-shadow duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] hover:shadow-lg"
                     {...relatedHover}
                   >
                     <span className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-forest-100 text-forest-600">
@@ -267,7 +267,7 @@ export default function ServiceDetail() {
               ))}
             </motion.ul>
 
-            <Reveal delay={0.08} className="mt-8">
+            <Reveal delay={0.24} className="mt-8">
               <Link
                 to="/services"
                 className="inline-flex min-h-[48px] items-center gap-1.5 text-base font-bold text-clay-600 hover:text-clay-700"

@@ -24,7 +24,7 @@ export default function Button({
   return (
     <Tag
       href={href}
-      className={`inline-flex min-h-[48px] items-center justify-center gap-2 rounded-lg px-6 py-3 text-base font-bold tracking-tight transition-[background-color,box-shadow,color] duration-150 ${styles[variant]} ${className}`}
+      className={`inline-flex min-h-[48px] items-center justify-center gap-2 rounded-lg px-6 py-3 text-base font-bold tracking-tight transition-[background-color,box-shadow,color] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] ${styles[variant]} ${className}`}
       {...props}
     >
       {children}

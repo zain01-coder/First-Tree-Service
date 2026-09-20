@@ -25,14 +25,14 @@ export default function SectionHeading({
       )}
       <Reveal
         as="h2"
-        delay={0.04}
+        delay={0.12}
         id={id}
         className={`text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl ${titleTone}`}
       >
         {title}
       </Reveal>
       {intro && (
-        <Reveal as="p" delay={0.08} className={`mt-4 text-lg leading-relaxed ${introTone}`}>
+        <Reveal as="p" delay={0.24} className={`mt-4 text-lg leading-relaxed ${introTone}`}>
           {intro}
         </Reveal>
       )}

@@ -8,11 +8,12 @@ import heroPhoto from '../../assets/footer.jpeg'
 
 /**
  * Hero entrance: headline, subtext and CTA fade/slide in staggered on load.
- * Total sequence is under 0.4s end to end, and every element is already in the
- * DOM and clickable — the animation never gates the phone number or the CTA.
+ * Total sequence runs ~1.2s end to end (0.16s between items, 0.5s each), and
+ * every element is already in the DOM and clickable — the animation never gates
+ * the phone number or the CTA.
  */
 export default function Hero() {
-  const group = useStagger({ stagger: 0.07, delayChildren: 0.03, scroll: false })
+  const group = useStagger({ stagger: 0.16, delayChildren: 0.08, scroll: false })
   const item = useStaggerItem({ y: 14 })
 
   return (

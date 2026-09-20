@@ -493,7 +493,36 @@ export const galleryItems = [
     alt: 'Overgrown fence line cleared of brush and small trees',
     caption: 'Fence line clearing',
   },
+  {
+    id: 7,
+    src: null,
+    label: '[PROJECT PHOTO — crane-assisted removal]',
+    alt: 'Crane lifting a sectioned trunk out of a fenced backyard',
+    caption: 'Crane pick over a backyard',
+  },
+  {
+    id: 8,
+    src: null,
+    label: '[PROJECT PHOTO — deadwooding a mature oak]',
+    alt: 'Climber roped into a mature oak cutting out deadwood from the canopy',
+    caption: 'Deadwooding a mature oak',
+  },
+  {
+    id: 9,
+    src: null,
+    label: '[PROJECT PHOTO — yard raked clean after a removal]',
+    alt: 'Lawn raked clean with no ruts or debris after a tree removal',
+    caption: 'Cleanup after a takedown',
+  },
 ]
+
+/** Copy for the /gallery page. */
+export const galleryPage = {
+  eyebrow: 'Recent work',
+  title: `Tree work around ${business.cityState}`,
+  intro: `Sectional removals over roofs, storm cleanup, stumps ground below grade and yards raked clean afterwards — this is the kind of work ${business.name} does week to week. Every photo here should be your own crew's; the blocks below mark where real job photos go.`,
+  note: '[PROJECT PHOTOS NEEDED — replace every block on this page with real job photos from your own crew. Never use stock photography in a gallery; homeowners recognise it and it costs you the call.]',
+}
 
 /** Never invent review text, names or ratings. Replace with real reviews only. */
 export const testimonials = [
@@ -695,7 +724,7 @@ export const navLinks = [
   { href: '/services', label: 'Services' },
   { href: '/about', label: 'About' },
   { href: '/#why-choose-us', label: 'Why Choose Us' },
-  { href: '/#gallery', label: 'Gallery' },
+  { href: '/gallery', label: 'Gallery' },
   { href: '/#reviews', label: 'Reviews' },
   { href: '/#faq', label: 'FAQ' },
   { href: '/#quote', label: 'Contact' },

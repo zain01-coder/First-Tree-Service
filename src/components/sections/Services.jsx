@@ -18,7 +18,7 @@ function ServiceCard({ service }) {
       {...item}
     >
       <motion.article
-        className="flex h-full flex-col overflow-hidden rounded-xl border border-forest-100 bg-white shadow-sm transition-shadow duration-200 hover:shadow-lg"
+        className="flex h-full flex-col overflow-hidden rounded-xl border border-forest-100 bg-white shadow-sm transition-shadow duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] hover:shadow-lg"
         {...hover}
       >
         <div className="aspect-4/3 overflow-hidden">
@@ -61,7 +61,7 @@ function ServiceCard({ service }) {
 }
 
 export default function Services() {
-  const group = useStagger({ stagger: 0.06, amount: 0.15 })
+  const group = useStagger({ stagger: 0.15, amount: 0.15 })
 
   return (
     <section id="services" className="bg-white py-16 sm:py-20">

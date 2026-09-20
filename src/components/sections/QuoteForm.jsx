@@ -22,7 +22,7 @@ function Field({ children }) {
 
 export default function QuoteForm() {
   const [submitted, setSubmitted] = useState(false)
-  const group = useStagger({ stagger: 0.04, amount: 0.15 })
+  const group = useStagger({ stagger: 0.12, amount: 0.15 })
 
   // [FORM HANDLER NEEDED — wire to the client's email service, CRM or form
   // endpoint (Formspree, Netlify Forms, etc.) before launch.]
@@ -53,18 +53,18 @@ export default function QuoteForm() {
           </Reveal>
           <Reveal
             as="h2"
-            delay={0.04}
+            delay={0.12}
             className="text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl"
           >
             Get a free quote on your tree work
           </Reveal>
-          <Reveal as="p" delay={0.08} className="mt-4 text-lg leading-relaxed text-forest-100">
+          <Reveal as="p" delay={0.24} className="mt-4 text-lg leading-relaxed text-forest-100">
             Tell us what's going on with the tree and where it is. We'll come look at it,
             walk you through the options, and give you a written price before any work
             starts.
           </Reveal>
 
-          <Reveal delay={0.1} className="mt-6 space-y-4">
+          <Reveal delay={0.3} className="mt-6 space-y-4">
             <div className="flex items-start gap-3">
               <Icon name="phone" className="mt-0.5 h-5 w-5 shrink-0 text-clay-400" strokeWidth={2} />
               <div>
@@ -89,7 +89,7 @@ export default function QuoteForm() {
         </div>
 
         <Reveal
-          delay={0.06}
+          delay={0.18}
           className="rounded-xl bg-white p-6 text-forest-900 shadow-lg sm:p-8"
         >
           {submitted ? (
@@ -196,7 +196,7 @@ export default function QuoteForm() {
               <Field>
                 <button
                   type="submit"
-                  className="inline-flex min-h-[52px] w-full items-center justify-center gap-2 rounded-lg bg-clay-500 px-6 py-3 text-base font-bold text-white shadow-sm transition-[background-color,box-shadow] duration-150 hover:bg-clay-600 hover:shadow-md active:bg-clay-700"
+                  className="inline-flex min-h-[52px] w-full items-center justify-center gap-2 rounded-lg bg-clay-500 px-6 py-3 text-base font-bold text-white shadow-sm transition-[background-color,box-shadow] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-clay-600 hover:shadow-md active:bg-clay-700"
                 >
                   Get My Free Quote
                 </button>

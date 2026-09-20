@@ -17,7 +17,7 @@ function FaqItem({ item, index, open, onToggle }) {
         initial: { opacity: 0 },
         animate: { opacity: 1 },
         exit: { opacity: 0 },
-        transition: { duration: DURATION.fast },
+        transition: { duration: DURATION.reduced },
       }
     : {
         initial: { height: 0, opacity: 0 },
@@ -29,7 +29,7 @@ function FaqItem({ item, index, open, onToggle }) {
   return (
     <Reveal
       as="div"
-      delay={Math.min(index * 0.03, 0.12)}
+      delay={Math.min(index * 0.12, 0.36)}
       className="border-b border-forest-100"
     >
       <h3>
